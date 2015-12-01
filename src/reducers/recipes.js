@@ -25,6 +25,42 @@ const initialState = [
     time: 3,
     isFavorite: false
   },
+  {
+    id: 3,
+    title: 'Kalita Wave',
+    url: 'https://www.stumptowncoffee.com/brew-guides/chemex',
+    source: 'Stumptown Brew Guide',
+    notes: 'Yield should be 20oz (bubble on 8-cup Chemex) – Drain remainder in sink at 4 minutes',
+    coffee: 42,
+    water: 700,
+    grind: 21,
+    time: 4,
+    isFavorite: true
+  },
+  {
+    id: 4,
+    title: 'Aeropress',
+    url: 'https://www.stumptowncoffee.com/brew-guides/v60',
+    source: 'Stumptown Brew Guide',
+    notes: '',
+    coffee: 21,
+    water: 360,
+    grind: 18,
+    time: 3,
+    isFavorite: false
+  },
+  {
+    id: 5,
+    title: 'Presspot',
+    url: 'https://www.stumptowncoffee.com/brew-guides/chemex',
+    source: 'Stumptown Brew Guide',
+    notes: 'Yield should be 20oz (bubble on 8-cup Chemex) – Drain remainder in sink at 4 minutes',
+    coffee: 42,
+    water: 700,
+    grind: 21,
+    time: 4,
+    isFavorite: true
+  },
 ]
 
 // TODO: Implement recipes reducer
