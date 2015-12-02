@@ -2,33 +2,33 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import MainSection from '../components/MainSection'
-import * as IngredientActions from '../actions/ingredient'
+import * as RecipeActions from '../actions/recipe'
 
 class App extends Component {
   render() {
-    const { ingredient, actions } = this.props
+    const { recipe, actions } = this.props
     return (
       <div>
-        <MainSection ingredient={ingredient} actions={actions} />
+        <MainSection recipe={recipe} actions={actions} />
       </div>
     )
   }
 }
 
 App.propTypes = {
-  ingredient: PropTypes.object.isRequired,
+  recipe: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    ingredient: state.ingredient
+    recipe: state.recipe
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(IngredientActions, dispatch)
+    actions: bindActionCreators(RecipeActions, dispatch)
   }
 }
 
