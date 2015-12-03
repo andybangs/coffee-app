@@ -1,14 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './containers/App'
+import { Router, Route, IndexRoute } from 'react-router'
+import createHashHistory from 'history/lib/createHashHistory'
+import { syncReduxAndRouter } from 'redux-simple-router'
 import configureStore from './store/configureStore'
+import App from './containers/App'
+import Coffee from './components/Coffee'
+import Water from './components/Water'
 
 const store = configureStore()
+const history = createHashHistory({ queryKey: false })
+
+syncReduxAndRouter(history, store)
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={history}>
+      <Route path="/" component={App}>
+        <IndexRoute component={Coffee} />
+        <Route path="coffee" component={Coffee} />
+        <Route path="water" component={Water} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app')
 )

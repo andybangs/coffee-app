@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as CoffeeActions from '../actions/coffee'
 
-class MainSection extends Component {
+class Water extends Component {
   constructor(props) {
     super(props)
 
@@ -17,7 +20,7 @@ class MainSection extends Component {
 
   handleUpdate(e) {
     if (isNaN(e.target.value)) return
-    this.props.actions.setWater(e.target.value)
+    this.props.actions.setCoffee(e.target.value)
   }
 
   handleSubmit(e) {
@@ -28,34 +31,34 @@ class MainSection extends Component {
 
   render() {
     const { recipe, actions } = this.props
-    const water = this.state.isEditing ?
+    const coffee = this.state.isEditing ?
       <div style={styles.innerContainer}>
         <input type="text"
           style={styles.input}
-          value={recipe.water}
+          value={recipe.coffee}
           onChange={this.handleUpdate}
           onKeyDown={this.handleSubmit}
           onBlur={this.toggleEdit}
           autoFocus></input>
       </div> :
       <div style={styles.innerContainer}>
-        <span style={styles.innerEdge} onClick={actions.decWater}>-</span>
+        <span style={styles.innerEdge} onClick={actions.decCoffee}>-</span>
         {' '}
-        <a style={styles.innerCenter} onClick={this.toggleEdit}>{recipe.water}</a>
+        <a style={styles.innerCenter} onClick={this.toggleEdit}>{recipe.coffee}</a>
         {' '}
-        <span style={styles.innerEdge} onClick={actions.incWater}>+</span>
+        <span style={styles.innerEdge} onClick={actions.incCoffee}>+</span>
       </div>
 
     return (
       <div style={styles.container}>
-        <div style={styles.coffee}>
+        <div style={styles.water}>
           <div style={styles.innerContainer}>
-            <span style={styles.innerDisplay}>{recipe.coffee.toFixed(1)}</span>
+            <span style={styles.innerDisplay}>{Math.round(recipe.water)}</span>
           </div>
         </div>
 
-        <div style={styles.water}>
-          {water}
+        <div style={styles.coffee}>
+          {coffee}
         </div>
 
         <div style={styles.ratio}>
@@ -67,19 +70,12 @@ class MainSection extends Component {
             <span style={styles.innerEdge} onClick={actions.incRatio}>+</span>
           </div>
         </div>
-
-        <div style={styles.tabbar}>
-          <div style={styles.innerContainer}>
-            <span style={styles.innerEdge}>coffee</span>
-            <span style={styles.innerEdge}>water</span>
-          </div>
-        </div>
       </div>
     )
   }
 }
 
-MainSection.propTypes = {
+Water.propTypes = {
   recipe: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
@@ -113,34 +109,39 @@ const styles = {
     textAlign: 'center',
     width: '50%'
   },
-  coffee: {
+  water: {
     order: 1,
-    backgroundColor: '#bd8468',
-    height: '33%',
+    backgroundColor: '#60daf0',
+    height: '40%',
     fontSize: 100,
     textAlign: 'center'
   },
-  water: {
+  coffee: {
     order: 2,
-    backgroundColor: '#60daf0',
-    height: '28%',
+    backgroundColor: '#bd8468',
+    height: '30%',
     fontSize: 70,
     textAlign: 'center'
   },
   ratio: {
     order: 3,
     backgroundColor: '#dae7e8',
-    height: '28%',
+    height: '30%',
     fontSize: 70,
-    textAlign: 'center'
-  },
-  tabbar: {
-    order: 4,
-    backgroundColor: '#fff',
-    height: '11%',
-    fontSize: 25,
     textAlign: 'center'
   }
 }
 
-export default MainSection
+function mapStateToProps(state) {
+  return {
+    recipe: state.recipe
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(CoffeeActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Water)
