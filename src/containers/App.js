@@ -7,11 +7,7 @@ import * as RecipeActions from '../actions/recipe'
 class App extends Component {
   render() {
     const { recipe, actions } = this.props
-    return (
-      <div>
-        <MainSection recipe={recipe} actions={actions} />
-      </div>
-    )
+    return <MainSection recipe={recipe} actions={actions} />
   }
 }
 

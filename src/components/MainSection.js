@@ -29,28 +29,50 @@ class MainSection extends Component {
   render() {
     const { recipe, actions } = this.props
     const water = this.state.isEditing ?
-      <input type="text"
-        value={recipe.water}
-        onChange={this.handleUpdate}
-        onKeyDown={this.handleSubmit}
-        onBlur={this.toggleEdit}
-        autoFocus></input> :
-      <div>
-        <p onClick={this.toggleEdit}>{recipe.water}</p>
-        <button onClick={actions.decWater}>-</button>
-        <button onClick={actions.incWater}>+</button>
+      <div style={styles.innerContainer}>
+        <input type="text"
+          style={styles.input}
+          value={recipe.water}
+          onChange={this.handleUpdate}
+          onKeyDown={this.handleSubmit}
+          onBlur={this.toggleEdit}
+          autoFocus></input>
+      </div> :
+      <div style={styles.innerContainer}>
+        <span style={styles.innerEdge} onClick={actions.decWater}>-</span>
+        {' '}
+        <a style={styles.innerCenter} onClick={this.toggleEdit}>{recipe.water}</a>
+        {' '}
+        <span style={styles.innerEdge} onClick={actions.incWater}>+</span>
       </div>
 
     return (
-      <div>
-        <div>
-          <p>{recipe.coffee.toFixed(1)}</p>
+      <div style={styles.container}>
+        <div style={styles.coffee}>
+          <div style={styles.innerContainer}>
+            <span style={styles.innerDisplay}>{recipe.coffee.toFixed(1)}</span>
+          </div>
         </div>
-        {water}
-        <div>
-          <p>1:{recipe.ratio}</p>
-          <button onClick={actions.decRatio}>-</button>
-          <button onClick={actions.incRatio}>+</button>
+
+        <div style={styles.water}>
+          {water}
+        </div>
+
+        <div style={styles.ratio}>
+          <div style={styles.innerContainer}>
+            <span style={styles.innerEdge} onClick={actions.decRatio}>-</span>
+            {' '}
+            <a style={styles.innerCenter}>1:{recipe.ratio}</a>
+            {' '}
+            <span style={styles.innerEdge} onClick={actions.incRatio}>+</span>
+          </div>
+        </div>
+
+        <div style={styles.tabbar}>
+          <div style={styles.innerContainer}>
+            <span style={styles.innerEdge}>coffee</span>
+            <span style={styles.innerEdge}>water</span>
+          </div>
         </div>
       </div>
     )
@@ -60,6 +82,65 @@ class MainSection extends Component {
 MainSection.propTypes = {
   recipe: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexFlow: 'column',
+    alignItems: 'stretch'
+  },
+  innerContainer: {
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'center'
+  },
+  innerDisplay: {
+    alignSelf: 'center'
+  },
+  innerCenter: {
+    flex: 3,
+    alignSelf: 'center'
+  },
+  innerEdge: {
+    flex: 1,
+    alignSelf: 'center',
+    cursor: 'pointer',
+    textAlign: 'center'
+  },
+  input: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    width: '50%'
+  },
+  coffee: {
+    order: 1,
+    backgroundColor: '#bd8468',
+    height: '33%',
+    fontSize: 100,
+    textAlign: 'center'
+  },
+  water: {
+    order: 2,
+    backgroundColor: '#60daf0',
+    height: '28%',
+    fontSize: 70,
+    textAlign: 'center'
+  },
+  ratio: {
+    order: 3,
+    backgroundColor: '#dae7e8',
+    height: '28%',
+    fontSize: 70,
+    textAlign: 'center'
+  },
+  tabbar: {
+    order: 4,
+    backgroundColor: '#fff',
+    height: '11%',
+    fontSize: 25,
+    textAlign: 'center'
+  }
 }
 
 export default MainSection
