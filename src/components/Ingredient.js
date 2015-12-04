@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Unit from './Unit'
 
 class Ingredient extends Component {
   constructor(props) {
@@ -41,9 +42,9 @@ class Ingredient extends Component {
       </div> :
       <div style={styles.container}>
         <span style={styles.operator} onClick={dec}>-</span>
-        {' '}
-        <a style={styles.value} onClick={this.toggleEdit}>{value}</a>
-        {' '}
+        <a style={styles.value}>
+          <Unit value={value} toggleEdit={this.toggleEdit} />
+        </a>
         <span style={styles.operator} onClick={inc}>+</span>
       </div>
   }

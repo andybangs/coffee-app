@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Unit from './Unit'
 
 class Display extends Component {
   render() {
@@ -6,7 +7,9 @@ class Display extends Component {
 
     return (
       <div style={styles.container}>
-        <span style={styles.value}>{value}</span>
+        <span style={styles.value}>
+          <Unit value={value} />
+        </span>
       </div>
     )
   }
@@ -27,6 +30,9 @@ const styles = {
   },
   value: {
     alignSelf: 'center'
+  },
+  unit: {
+    fontSize: '0.5em'
   }
 }
 
