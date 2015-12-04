@@ -2,73 +2,33 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as WaterActions from '../actions/water'
+import Display from './Display'
+import Ingredient from './Ingredient'
+import Ratio from './Ratio'
 
 class Coffee extends Component {
-  constructor(props) {
-    super(props)
-
-    this.toggleEdit = this.toggleEdit.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-
-    this.state = { isEditing: false }
-  }
-
-  toggleEdit() {
-    this.setState({ isEditing: !this.state.isEditing })
-  }
-
-  handleUpdate(e) {
-    if (isNaN(e.target.value)) return
-    this.props.actions.setWater(e.target.value)
-  }
-
-  handleSubmit(e) {
-    if (e.which === 13) {
-      this.toggleEdit()
-    }
-  }
-
   render() {
     const { recipe, actions } = this.props
-    const water = this.state.isEditing ?
-      <div style={styles.innerContainer}>
-        <input type="text"
-          style={styles.input}
-          value={recipe.water}
-          onChange={this.handleUpdate}
-          onKeyDown={this.handleSubmit}
-          onBlur={this.toggleEdit}
-          autoFocus></input>
-      </div> :
-      <div style={styles.innerContainer}>
-        <span style={styles.innerEdge} onClick={actions.decWater}>-</span>
-        {' '}
-        <a style={styles.innerCenter} onClick={this.toggleEdit}>{recipe.water}</a>
-        {' '}
-        <span style={styles.innerEdge} onClick={actions.incWater}>+</span>
-      </div>
 
     return (
       <div style={styles.container}>
         <div style={styles.coffee}>
-          <div style={styles.innerContainer}>
-            <span style={styles.innerDisplay}>{recipe.coffee.toFixed(1)}</span>
-          </div>
+          <Display value={recipe.coffee.toFixed(1)} />
         </div>
 
         <div style={styles.water}>
-          {water}
+          <Ingredient
+            value={recipe.water}
+            handleUpdate={actions.setWater}
+            inc={actions.incWater}
+            dec={actions.decWater} />
         </div>
 
         <div style={styles.ratio}>
-          <div style={styles.innerContainer}>
-            <span style={styles.innerEdge} onClick={actions.decRatio}>-</span>
-            {' '}
-            <a style={styles.innerCenter}>1:{recipe.ratio}</a>
-            {' '}
-            <span style={styles.innerEdge} onClick={actions.incRatio}>+</span>
-          </div>
+          <Ratio
+            value={recipe.ratio}
+            inc={actions.incRatio}
+            dec={actions.decRatio}/>
         </div>
       </div>
     )
@@ -85,29 +45,6 @@ const styles = {
     display: 'flex',
     flexFlow: 'column',
     alignItems: 'stretch'
-  },
-  innerContainer: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'center'
-  },
-  innerDisplay: {
-    alignSelf: 'center'
-  },
-  innerCenter: {
-    flex: 3,
-    alignSelf: 'center'
-  },
-  innerEdge: {
-    flex: 1,
-    alignSelf: 'center',
-    cursor: 'pointer',
-    textAlign: 'center'
-  },
-  input: {
-    alignSelf: 'center',
-    textAlign: 'center',
-    width: '50%'
   },
   coffee: {
     order: 1,

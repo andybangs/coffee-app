@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+import Tabs from '../components/Tabs'
 
 class App extends Component {
   render() {
@@ -10,10 +10,7 @@ class App extends Component {
           {this.props.children}
         </div>
         <div style={styles.footer}>
-          <div style={styles.tabsContainer}>
-            <Link to="/coffee" style={styles.tab}>coffee</Link>
-            <Link to="/water" style={styles.tab} >water</Link>
-          </div>
+          <Tabs />
         </div>
       </div>
     )
@@ -33,20 +30,6 @@ const styles = {
   footer: {
     order: 2,
     height: '12%',
-  },
-  tabsContainer: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'center'
-  },
-  tab: {
-    flex: 1,
-    alignSelf: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: 25,
-    textAlign: 'center'
   }
 }
 
