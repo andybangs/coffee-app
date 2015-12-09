@@ -19,7 +19,7 @@ function gramsToOunces(val) {
 
 // ouncesToGrams :: Number -> Number
 function ouncesToGrams(val) {
-  return +(val * 283495 / 10000).toFixed()
+  return +(val * 283495 / 10000).toFixed(1)
 }
 
 // calcCoffee :: String -> Number -> Number -> Number
@@ -36,12 +36,12 @@ function calcWater(waterUnit, coffee, ratio) {
 
 // incVal :: String -> Number -> Number
 function incVal(unit, val) {
-  return isInGrams(unit) ? val + 1 : (val * 10 + 1) / 10
+  return (val * 10 + 1) / 10
 }
 
 // decVal :: String -> Number -> Number
 function decVal(unit, val) {
-  return isInGrams(unit) ? val - 1 : (val * 10 - 1) / 10
+  return (val * 10 - 1) / 10
 }
 
 // convertVal :: String -> Number -> Number
