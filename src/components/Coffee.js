@@ -13,7 +13,7 @@ class Coffee extends Component {
     return (
       <div style={styles.container}>
         <div style={styles.coffee}>
-          <Display value={recipe.coffee.value.toFixed(1)} />
+          <Display value={recipe.coffee.value.toFixed(1)} unit={recipe.coffee.unit} />
         </div>
 
         <div style={styles.water}>

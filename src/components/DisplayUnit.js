@@ -4,7 +4,8 @@ class DisplayUnit extends Component {
   constructor(props) {
     super(props)
     this.toggleUnit = this.toggleUnit.bind(this)
-    this.state = { unit: 'g' }
+    // TODO: TAKE PROPS OUT OF STATE!
+    this.state = { unit: this.props.unit }
   }
 
   toggleUnit() {

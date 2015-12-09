@@ -3,12 +3,12 @@ import DisplayUnit from './DisplayUnit'
 
 class Display extends Component {
   render() {
-    const { value } = this.props
+    const { value, unit } = this.props
 
     return (
       <div style={styles.container}>
         <span style={styles.value}>
-          <DisplayUnit value={value} />
+          <DisplayUnit value={value} unit={unit} />
         </span>
       </div>
     )

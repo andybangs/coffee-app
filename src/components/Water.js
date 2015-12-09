@@ -13,15 +13,17 @@ class Water extends Component {
     return (
       <div style={styles.container}>
         <div style={styles.water}>
-          <Display value={Math.round(recipe.water)} />
+          <Display value={Math.round(recipe.water.value)} unit={recipe.water.unit} />
         </div>
 
         <div style={styles.coffee}>
           <Ingredient
-            value={recipe.coffee}
+            value={recipe.coffee.value}
+            unit={recipe.coffee.unit}
             handleUpdate={actions.setCoffee}
             inc={actions.incCoffee}
-            dec={actions.decCoffee} />
+            dec={actions.decCoffee}
+            toggleUnit={actions.toggleUnit} />
         </div>
 
         <div style={styles.ratio}>
@@ -34,6 +36,35 @@ class Water extends Component {
     )
   }
 }
+
+// const Water = (props) => {
+//   const { recipe, actions } = props
+//
+//   return (
+//     <div style={styles.container}>
+//       <div style={styles.water}>
+//         <Display value={Math.round(recipe.water.value)} />
+//       </div>
+//
+//       <div style={styles.coffee}>
+//         <Ingredient
+//           value={recipe.coffee.value}
+//           unit={recipe.coffee.unit}
+//           handleUpdate={actions.setCoffee}
+//           inc={actions.incCoffee}
+//           dec={actions.decCoffee}
+//           toggleUnit={actions.toggleUnit} />
+//       </div>
+//
+//       <div style={styles.ratio}>
+//         <Ratio
+//           value={recipe.ratio}
+//           inc={actions.incRatio}
+//           dec={actions.decRatio}/>
+//       </div>
+//     </div>
+//   )
+// }
 
 Water.propTypes = {
   recipe: PropTypes.object.isRequired,
