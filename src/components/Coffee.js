@@ -13,15 +13,17 @@ class Coffee extends Component {
     return (
       <div style={styles.container}>
         <div style={styles.coffee}>
-          <Display value={recipe.coffee.toFixed(1)} />
+          <Display value={recipe.coffee.value.toFixed(1)} />
         </div>
 
         <div style={styles.water}>
           <Ingredient
-            value={recipe.water}
+            value={recipe.water.value}
+            unit={recipe.water.unit}
             handleUpdate={actions.setWater}
             inc={actions.incWater}
-            dec={actions.decWater} />
+            dec={actions.decWater}
+            toggleUnit={actions.toggleUnit} />
         </div>
 
         <div style={styles.ratio}>

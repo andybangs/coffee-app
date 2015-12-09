@@ -21,6 +21,10 @@ class Ingredient extends Component {
     this.props.handleUpdate(e.target.value)
   }
 
+  toggleUnit() {
+    this.props.toggleUnit()
+  }
+
   handleSubmit(e) {
     if (e.which === 13) {
       this.toggleEdit()
@@ -28,7 +32,7 @@ class Ingredient extends Component {
   }
 
   render() {
-    const { value, inc, dec } = this.props
+    const { value, unit, inc, dec, toggleUnit } = this.props
 
     return this.state.isEditing ?
       <div style={styles.container}>
@@ -43,7 +47,7 @@ class Ingredient extends Component {
       <div style={styles.container}>
         <span style={styles.operator} onClick={dec}>-</span>
         <a style={styles.value}>
-          <Unit value={value} toggleEdit={this.toggleEdit} />
+          <Unit value={value} unit={unit} toggleUnit={toggleUnit} toggleEdit={this.toggleEdit} />
         </a>
         <span style={styles.operator} onClick={inc}>+</span>
       </div>
@@ -52,6 +56,7 @@ class Ingredient extends Component {
 
 Ingredient.propTypes = {
   value: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   inc: PropTypes.func.isRequired,
   dec: PropTypes.func.isRequired,

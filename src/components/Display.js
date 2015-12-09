@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import Unit from './Unit'
+import DisplayUnit from './DisplayUnit'
 
 class Display extends Component {
   render() {
-    const { value, inc, dec } = this.props
+    const { value } = this.props
 
     return (
       <div style={styles.container}>
         <span style={styles.value}>
-          <Unit value={value} />
+          <DisplayUnit value={value} />
         </span>
       </div>
     )
