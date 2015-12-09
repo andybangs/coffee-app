@@ -1,25 +1,25 @@
 import React, { Component, PropTypes } from 'react'
-import DisplayUnit from './DisplayUnit'
+import Unit from './Unit'
 
-class Display extends Component {
-  render() {
-    const { value, unit } = this.props
+const Display = (props) => {
+  const { value, unit, toggleDisplayUnit } = props
 
-    return (
-      <div style={styles.container}>
-        <span style={styles.value}>
-          <DisplayUnit value={value} unit={unit} />
-        </span>
-      </div>
-    )
-  }
+  return (
+    <div style={styles.container}>
+      <span style={styles.value}>
+        <Unit value={value} unit={unit} toggleUnit={toggleDisplayUnit} />
+      </span>
+    </div>
+  )
 }
 
 Display.propTypes = {
   value: React.PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
-  ])
+  ]),
+  unit: React.PropTypes.string.isRequired,
+  toggleDisplayUnit: React.PropTypes.func.isRequired
 }
 
 const styles = {

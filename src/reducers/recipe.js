@@ -1,5 +1,5 @@
-import { INC_WATER, DEC_WATER, SET_WATER, INC_RATIO_UPDATE_COFFEE, DEC_RATIO_UPDATE_COFFEE, TOGGLE_UNIT_UPDATE_WATER } from '../actions/water'
-import { INC_COFFEE, DEC_COFFEE, SET_COFFEE, INC_RATIO_UPDATE_WATER, DEC_RATIO_UPDATE_WATER, TOGGLE_UNIT_UPDATE_COFFEE } from '../actions/coffee'
+import { INC_WATER, DEC_WATER, SET_WATER, INC_RATIO_UPDATE_COFFEE, DEC_RATIO_UPDATE_COFFEE, TOGGLE_UNIT_UPDATE_WATER, TOGGLE_COFFEE_UNIT } from '../actions/water'
+import { INC_COFFEE, DEC_COFFEE, SET_COFFEE, INC_RATIO_UPDATE_WATER, DEC_RATIO_UPDATE_WATER, TOGGLE_UNIT_UPDATE_COFFEE, TOGGLE_WATER_UNIT } from '../actions/coffee'
 
 const initialState = {
   coffee: { value: 42, unit: 'g' },
@@ -22,14 +22,16 @@ function ouncesToGrams(val) {
   return +(val * 283495 / 10000).toFixed()
 }
 
-// calcCoffee :: Number -> Number -> Number
-function calcCoffee(water, ratio) {
-  return +(water / ratio).toFixed(1)
+// calcCoffee :: String -> Number -> Number -> Number
+function calcCoffee(coffeeUnit, water, ratio) {
+  const coffeeVal = +(water / ratio).toFixed(1)
+  return isInGrams(coffeeUnit) ? coffeeVal : gramsToOunces(coffeeVal)
 }
 
-// calcWater :: Number -> Number -> Number
-function calcWater(coffee, ratio) {
-  return Math.round(coffee * ratio)
+// calcWater :: String -> Number -> Number -> Number
+function calcWater(waterUnit, coffee, ratio) {
+  const waterVal = Math.round(coffee * ratio)
+  return isInGrams(waterUnit) ? waterVal : gramsToOunces(waterVal)
 }
 
 // incVal :: String -> Number -> Number
@@ -52,18 +54,18 @@ function toggleUnit(unit) {
   return unit === 'g' ? 'oz' : 'g'
 }
 
-// updateCoffee :: String -> Number -> Number -> Number
-function updateCoffee(unit, water, ratio) {
-  return isInGrams(unit) ?
-    calcCoffee(water, ratio) :
-    calcCoffee(ouncesToGrams(water), ratio)
+// updateCoffee :: String -> String -> Number -> Number -> Number
+function updateCoffee(coffeeUnit, waterUnit, water, ratio) {
+  return isInGrams(waterUnit) ?
+    calcCoffee(coffeeUnit, water, ratio) :
+    calcCoffee(coffeeUnit, ouncesToGrams(water), ratio)
 }
 
-// updateWater :: String -> Number -> Number -> Number
-function updateWater(unit, coffee, ratio) {
-  return isInGrams(unit) ?
-    calcWater(coffee, ratio) :
-    calcWater(ouncesToGrams(coffee), ratio)
+// updateWater :: String -> String -> Number -> Number -> Number
+function updateWater(waterUnit, coffeeUnit, coffee, ratio) {
+  return isInGrams(coffeeUnit) ?
+    calcWater(waterUnit, coffee, ratio) :
+    calcWater(waterUnit, ouncesToGrams(coffee), ratio)
 }
 
 export default function recipe(state = initialState, action) {
@@ -76,7 +78,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         coffee: {
-          value: updateCoffee(water.unit, newWater, ratio),
+          value: updateCoffee(coffee.unit, water.unit, newWater, ratio),
           unit: coffee.unit
         },
         water: {
@@ -92,7 +94,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         coffee: {
-          value: updateCoffee(water.unit, newWater, ratio),
+          value: updateCoffee(coffee.unit, water.unit, newWater, ratio),
           unit: coffee.unit
         },
         water: {
@@ -106,7 +108,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         coffee: {
-          value: updateCoffee(water.unit, action.water, ratio),
+          value: updateCoffee(coffee.unit, water.unit, action.water, ratio),
           unit: coffee.unit
         },
         water: {
@@ -122,7 +124,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         coffee: {
-          value: updateCoffee(water.unit, water.value, newRatio),
+          value: updateCoffee(coffee.unit, water.unit, water.value, newRatio),
           unit: coffee.unit
         },
         ratio: newRatio
@@ -135,7 +137,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         coffee: {
-          value: updateCoffee(water.unit, water.value, newRatio),
+          value: updateCoffee(coffee.unit, water.unit, water.value, newRatio),
           unit: coffee.unit
         },
         ratio: newRatio
@@ -146,6 +148,14 @@ export default function recipe(state = initialState, action) {
         water: {
           value: convertVal(water.unit, water.value),
           unit: toggleUnit(water.unit)
+        }
+      })
+
+    case TOGGLE_COFFEE_UNIT:
+      return Object.assign({}, state, {
+        coffee: {
+          value: convertVal(coffee.unit, coffee.value),
+          unit: toggleUnit(coffee.unit)
         }
       })
 
@@ -160,7 +170,7 @@ export default function recipe(state = initialState, action) {
           unit: coffee.unit
         },
         water: {
-          value: updateWater(coffee.unit, newCoffee, ratio),
+          value: updateWater(water.unit, coffee.unit, newCoffee, ratio),
           unit: water.unit
         }
       })
@@ -176,11 +186,11 @@ export default function recipe(state = initialState, action) {
           unit: coffee.unit
         },
         water: {
-          value: updateWater(coffee.unit, newCoffee, ratio),
+          value: updateWater(water.unit, coffee.unit, newCoffee, ratio),
           unit: water.unit
         }
       })
-      
+
     case SET_COFFEE:
       if (action.coffee < 0) return state
 
@@ -190,7 +200,7 @@ export default function recipe(state = initialState, action) {
           unit: coffee.unit
         },
         water: {
-          value: updateWater(coffee.unit, +action.coffee, ratio),
+          value: updateWater(water.unit, coffee.unit, +action.coffee, ratio),
           unit: water.unit
         }
       })
@@ -202,7 +212,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         water: {
-          value: updateWater(coffee.unit, coffee.value, newRatio),
+          value: updateWater(water.unit, coffee.unit, coffee.value, newRatio),
           unit: water.unit
         },
         ratio: newRatio
@@ -215,7 +225,7 @@ export default function recipe(state = initialState, action) {
 
       return Object.assign({}, state, {
         water: {
-          value: updateWater(coffee.unit, coffee.value, newRatio),
+          value: updateWater(water.unit, coffee.unit, coffee.value, newRatio),
           unit: water.unit
         },
         ratio: newRatio
@@ -226,6 +236,14 @@ export default function recipe(state = initialState, action) {
         coffee: {
           value: convertVal(coffee.unit, coffee.value),
           unit: toggleUnit(coffee.unit)
+        }
+      })
+
+    case TOGGLE_WATER_UNIT:
+      return Object.assign({}, state, {
+        water: {
+          value: convertVal(water.unit, water.value),
+          unit: toggleUnit(water.unit)
         }
       })
 

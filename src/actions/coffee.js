@@ -4,6 +4,7 @@ export const SET_COFFEE = 'SET_COFFEE'
 export const INC_RATIO_UPDATE_WATER = 'INC_RATIO_UPDATE_WATER'
 export const DEC_RATIO_UPDATE_WATER = 'DEC_RATIO_UPDATE_WATER'
 export const TOGGLE_UNIT_UPDATE_COFFEE = 'TOGGLE_UNIT_UPDATE_COFFEE'
+export const TOGGLE_WATER_UNIT = 'TOGGLE_WATER_UNIT'
 
 export function incCoffee() {
   return {
@@ -39,5 +40,11 @@ export function decRatio() {
 export function toggleUnit() {
   return {
     type: TOGGLE_UNIT_UPDATE_COFFEE
+  }
+}
+
+export function toggleDisplayUnit() {
+  return {
+    type: TOGGLE_WATER_UNIT
   }
 }

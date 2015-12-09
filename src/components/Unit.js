@@ -14,8 +14,12 @@ const Unit = (props) => {
 }
 
 Unit.propTypes = {
-  value: React.PropTypes.number.isRequired,
-  toggleEdit: React.PropTypes.func.isRequired
+  value: React.PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
+  toggleEdit: React.PropTypes.func,
+  toggleUnit: React.PropTypes.func
 }
 
 const styles = {
