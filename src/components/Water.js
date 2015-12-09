@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as CoffeeActions from '../actions/coffee'
@@ -6,33 +6,36 @@ import Display from './Display'
 import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
-class Water extends Component {
-  render() {
-    const { recipe, actions } = this.props
+const Water = (props) => {
+  const { recipe, actions } = props
 
-    return (
-      <div style={styles.container}>
-        <div style={styles.water}>
-          <Display value={Math.round(recipe.water)} />
-        </div>
-
-        <div style={styles.coffee}>
-          <Ingredient
-            value={recipe.coffee}
-            handleUpdate={actions.setCoffee}
-            inc={actions.incCoffee}
-            dec={actions.decCoffee} />
-        </div>
-
-        <div style={styles.ratio}>
-          <Ratio
-            value={recipe.ratio}
-            inc={actions.incRatio}
-            dec={actions.decRatio}/>
-        </div>
+  return (
+    <div style={styles.container}>
+      <div style={styles.water}>
+        <Display
+          value={recipe.water.value}
+          unit={recipe.water.unit}
+          toggleDisplayUnit={actions.toggleDisplayUnit}/>
       </div>
-    )
-  }
+
+      <div style={styles.coffee}>
+        <Ingredient
+          value={recipe.coffee.value}
+          unit={recipe.coffee.unit}
+          handleUpdate={actions.setCoffee}
+          inc={actions.incCoffee}
+          dec={actions.decCoffee}
+          toggleUnit={actions.toggleUnit} />
+      </div>
+
+      <div style={styles.ratio}>
+        <Ratio
+          value={recipe.ratio}
+          inc={actions.incRatio}
+          dec={actions.decRatio}/>
+      </div>
+    </div>
+  )
 }
 
 Water.propTypes = {
