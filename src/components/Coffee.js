@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as WaterActions from '../actions/water'
+import * as RecipeActions from '../actions/recipe'
 import Display from './Display'
 import Ingredient from './Ingredient'
 import Ratio from './Ratio'
@@ -13,23 +13,26 @@ const Coffee = (props) => {
     <div style={styles.container}>
       <div style={styles.coffee}>
         <Display
+          ingredient="coffee"
           value={recipe.coffee.value.toFixed(1)}
           unit={recipe.coffee.unit}
-          toggleDisplayUnit={actions.toggleDisplayUnit} />
+          toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.water}>
         <Ingredient
+          ingredient="water"
           value={recipe.water.value}
           unit={recipe.water.unit}
-          handleUpdate={actions.setWater}
-          inc={actions.incWater}
-          dec={actions.decWater}
+          handleUpdate={actions.setVal}
+          inc={actions.incVal}
+          dec={actions.decVal}
           toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.ratio}>
         <Ratio
+          toBeUpdated="coffee"
           value={recipe.ratio}
           inc={actions.incRatio}
           dec={actions.decRatio}/>
@@ -80,7 +83,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(WaterActions, dispatch)
+    actions: bindActionCreators(RecipeActions, dispatch)
   }
 }
 

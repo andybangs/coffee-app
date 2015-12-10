@@ -1,6 +1,4 @@
-import { INC_WATER, DEC_WATER, SET_WATER, INC_RATIO_UPDATE_COFFEE, DEC_RATIO_UPDATE_COFFEE } from '../constants/water'
-import { INC_COFFEE, DEC_COFFEE, SET_COFFEE, INC_RATIO_UPDATE_WATER, DEC_RATIO_UPDATE_WATER } from '../constants/coffee'
-import { TOGGLE_COFFEE_UNIT, TOGGLE_WATER_UNIT } from '../constants/unit'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/recipe'
 import { isInGrams, gramsToOunces, ouncesToGrams } from '../util/math'
 
 const initialState = {
@@ -57,170 +55,143 @@ function updateWater(waterUnit, coffeeUnit, coffee, ratio) {
 
 export default function recipe(state = initialState, action) {
   const { coffee, water, ratio } = state
-  let newCoffee, newWater, newRatio
+  const { ingredient, toBeUpdated } = action
+  let newVal
 
   switch (action.type) {
-    case INC_WATER:
-      newWater = incVal(water.unit, water.value)
+    case INC_VAL:
+      newVal = incVal(state[ingredient].unit, state[ingredient].value)
 
-      return Object.assign({}, state, {
-        coffee: {
-          value: updateCoffee(coffee.unit, water.unit, newWater, ratio),
-          unit: coffee.unit
-        },
-        water: {
-          value: newWater,
-          unit: water.unit
-        }
-      })
+      return ingredient === 'water' ?
+        Object.assign({}, state, {
+          coffee: {
+            value: updateCoffee(coffee.unit, water.unit, newVal, ratio),
+            unit: coffee.unit
+          },
+          water: {
+            value: newVal,
+            unit: water.unit
+          }
+        }) :
+        Object.assign({}, state, {
+          coffee: {
+            value: newVal,
+            unit: coffee.unit
+          },
+          water: {
+            value: updateWater(water.unit, coffee.unit, newVal, ratio),
+            unit: water.unit
+          }
+        })
 
-    case DEC_WATER:
+    case DEC_VAL:
       if (state.water < 1) return state
 
-      newWater = decVal(water.unit, water.value)
+      newVal = decVal(state[ingredient].unit, state[ingredient].value)
 
-      return Object.assign({}, state, {
-        coffee: {
-          value: updateCoffee(coffee.unit, water.unit, newWater, ratio),
-          unit: coffee.unit
-        },
-        water: {
-          value: newWater,
-          unit: water.unit
-        }
-      })
+      return ingredient === 'water' ?
+        Object.assign({}, state, {
+          coffee: {
+            value: updateCoffee(coffee.unit, water.unit, newVal, ratio),
+            unit: coffee.unit
+          },
+          water: {
+            value: newVal,
+            unit: water.unit
+          }
+        }) :
+        Object.assign({}, state, {
+          coffee: {
+            value: newVal,
+            unit: coffee.unit
+          },
+          water: {
+            value: updateWater(water.unit, coffee.unit, newVal, ratio),
+            unit: water.unit
+          }
+        })
 
-    case SET_WATER:
-      if (action.water < 0) return state
+    case SET_VAL:
+      if (action.val < 0) return state
 
-      return Object.assign({}, state, {
-        coffee: {
-          value: updateCoffee(coffee.unit, water.unit, action.water, ratio),
-          unit: coffee.unit
-        },
-        water: {
-          value: +action.water,
-          unit: water.unit
-        }
-      })
+      return ingredient === 'water' ?
+        Object.assign({}, state, {
+          coffee: {
+            value: updateCoffee(coffee.unit, water.unit, action.val, ratio),
+            unit: coffee.unit
+          },
+          water: {
+            value: +action.val,
+            unit: water.unit
+          }
+        }) :
+        Object.assign({}, state, {
+          coffee: {
+            value: +action.val,
+            unit: coffee.unit
+          },
+          water: {
+            value: updateWater(water.unit, coffee.unit, +action.val, ratio),
+            unit: water.unit
+          }
+        })
 
-    case INC_RATIO_UPDATE_COFFEE:
+    case INC_RATIO:
       if (ratio > 19) return state
 
-      newRatio = ratio + 1
+      newVal = ratio + 1
 
-      return Object.assign({}, state, {
-        coffee: {
-          value: updateCoffee(coffee.unit, water.unit, water.value, newRatio),
-          unit: coffee.unit
-        },
-        ratio: newRatio
-      })
+      return toBeUpdated === 'coffee' ?
+        Object.assign({}, state, {
+          coffee: {
+            value: updateCoffee(coffee.unit, water.unit, water.value, newVal),
+            unit: coffee.unit
+          },
+          ratio: newVal
+        }) :
+        Object.assign({}, state, {
+          water: {
+            value: updateWater(water.unit, coffee.unit, coffee.value, newVal),
+            unit: water.unit
+          },
+          ratio: newVal
+        })
 
-    case DEC_RATIO_UPDATE_COFFEE:
+    case DEC_RATIO:
       if (ratio < 11) return state
 
-      newRatio = ratio - 1
+      newVal = ratio - 1
 
-      return Object.assign({}, state, {
-        coffee: {
-          value: updateCoffee(coffee.unit, water.unit, water.value, newRatio),
-          unit: coffee.unit
-        },
-        ratio: newRatio
-      })
+      return toBeUpdated === 'coffee' ?
+        Object.assign({}, state, {
+          coffee: {
+            value: updateCoffee(coffee.unit, water.unit, water.value, newVal),
+            unit: coffee.unit
+          },
+          ratio: newVal
+        }) :
+        Object.assign({}, state, {
+          water: {
+            value: updateWater(water.unit, coffee.unit, coffee.value, newVal),
+            unit: water.unit
+          },
+          ratio: newVal
+        })
 
-    ////
-
-    case INC_COFFEE:
-      newCoffee = incVal(coffee.unit, coffee.value)
-
-      return Object.assign({}, state, {
-        coffee: {
-          value: newCoffee,
-          unit: coffee.unit
-        },
-        water: {
-          value: updateWater(water.unit, coffee.unit, newCoffee, ratio),
-          unit: water.unit
-        }
-      })
-
-    case DEC_COFFEE:
-      if (state.coffee < 1) return state
-
-      newCoffee = decVal(coffee.unit, coffee.value)
-
-      return Object.assign({}, state, {
-        coffee: {
-          value: newCoffee,
-          unit: coffee.unit
-        },
-        water: {
-          value: updateWater(water.unit, coffee.unit, newCoffee, ratio),
-          unit: water.unit
-        }
-      })
-
-    case SET_COFFEE:
-      if (action.coffee < 0) return state
-
-      return Object.assign({}, state, {
-        coffee: {
-          value: +action.coffee,
-          unit: coffee.unit
-        },
-        water: {
-          value: updateWater(water.unit, coffee.unit, +action.coffee, ratio),
-          unit: water.unit
-        }
-      })
-
-    case INC_RATIO_UPDATE_WATER:
-      if (state.ratio > 19) return state
-
-      newRatio = state.ratio + 1
-
-      return Object.assign({}, state, {
-        water: {
-          value: updateWater(water.unit, coffee.unit, coffee.value, newRatio),
-          unit: water.unit
-        },
-        ratio: newRatio
-      })
-
-    case DEC_RATIO_UPDATE_WATER:
-      if (state.ratio < 11) return state
-
-      newRatio = state.ratio - 1
-
-      return Object.assign({}, state, {
-        water: {
-          value: updateWater(water.unit, coffee.unit, coffee.value, newRatio),
-          unit: water.unit
-        },
-        ratio: newRatio
-      })
-
-    ////
-
-    case TOGGLE_COFFEE_UNIT:
-      return Object.assign({}, state, {
-        coffee: {
-          value: convertVal(coffee.unit, coffee.value),
-          unit: toggleUnit(coffee.unit)
-        }
-      })
-
-    case TOGGLE_WATER_UNIT:
-      return Object.assign({}, state, {
-        water: {
-          value: convertVal(water.unit, water.value),
-          unit: toggleUnit(water.unit)
-        }
-      })
-
-    ////
+    case TOGGLE_UNIT:
+      return toBeUpdated === 'coffee' ?
+        Object.assign({}, state, {
+          coffee: {
+            value: convertVal(coffee.unit, coffee.value),
+            unit: toggleUnit(coffee.unit)
+          }
+        }) :
+        Object.assign({}, state, {
+          water: {
+            value: convertVal(water.unit, water.value),
+            unit: toggleUnit(water.unit)
+          }
+        })
 
     default:
       return state

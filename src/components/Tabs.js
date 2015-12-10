@@ -4,7 +4,8 @@ import { Link } from 'react-router'
 class Tabs extends Component {
   constructor(props) {
     super(props)
-    this.state= { selected: 1 }
+    
+    this.state = { selected: 1 }
   }
   render() {
     const { selected } = this.state

@@ -2,24 +2,29 @@ import React, { PropTypes } from 'react'
 import Unit from './Unit'
 
 const Display = (props) => {
-  const { value, unit, toggleDisplayUnit } = props
+  const { ingredient, value, unit, toggleUnit } = props
 
   return (
     <div style={styles.container}>
       <span style={styles.value}>
-        <Unit value={value} unit={unit} toggleUnit={toggleDisplayUnit} />
+        <Unit
+          ingredient={ingredient}
+          value={value}
+          unit={unit}
+          toggleUnit={toggleUnit} />
       </span>
     </div>
   )
 }
 
 Display.propTypes = {
+  ingredient: PropTypes.string.isRequired,
   value: React.PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
   ]),
   unit: React.PropTypes.string.isRequired,
-  toggleDisplayUnit: React.PropTypes.func.isRequired
+  toggleUnit: React.PropTypes.func.isRequired
 }
 
 const styles = {

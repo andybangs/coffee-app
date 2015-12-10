@@ -8,6 +8,8 @@ class Ingredient extends Component {
     this.toggleEdit = this.toggleEdit.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.inc = this.inc.bind(this)
+    this.dec = this.dec.bind(this)
 
     this.state = { isEditing: false }
   }
@@ -18,11 +20,7 @@ class Ingredient extends Component {
 
   handleUpdate(e) {
     if (isNaN(e.target.value)) return
-    this.props.handleUpdate(e.target.value)
-  }
-
-  toggleUnit() {
-    this.props.toggleUnit()
+    this.props.handleUpdate(this.props.ingredient, e.target.value)
   }
 
   handleSubmit(e) {
@@ -31,8 +29,16 @@ class Ingredient extends Component {
     }
   }
 
+  inc() {
+    this.props.inc(this.props.ingredient)
+  }
+
+  dec() {
+    this.props.dec(this.props.ingredient)
+  }
+
   render() {
-    const { value, unit, inc, dec, toggleUnit } = this.props
+    const { ingredient, value, unit, inc, dec, toggleUnit } = this.props
 
     return this.state.isEditing ?
       <div style={styles.container}>
@@ -45,21 +51,28 @@ class Ingredient extends Component {
           autoFocus></input>
       </div> :
       <div style={styles.container}>
-        <span style={styles.operator} onClick={dec}>-</span>
+        <span style={styles.operator} onClick={this.dec}>-</span>
         <a style={styles.value}>
-          <Unit value={value} unit={unit} toggleUnit={toggleUnit} toggleEdit={this.toggleEdit} />
+          <Unit
+            ingredient={ingredient}
+            value={value}
+            unit={unit}
+            toggleUnit={toggleUnit}
+            toggleEdit={this.toggleEdit} />
         </a>
-        <span style={styles.operator} onClick={inc}>+</span>
+        <span style={styles.operator} onClick={this.inc}>+</span>
       </div>
   }
 }
 
 Ingredient.propTypes = {
+  ingredient: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   unit: PropTypes.string.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   inc: PropTypes.func.isRequired,
   dec: PropTypes.func.isRequired,
+  toggleUnit: PropTypes.func.isRequired,
 }
 
 const styles = {

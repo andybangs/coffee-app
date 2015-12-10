@@ -1,19 +1,32 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 
-const Unit = (props) => {
-  const { value, unit, toggleEdit, toggleUnit } = props
+class Unit extends Component {
+  constructor(props) {
+    super(props)
+    
+    this.toggleUnit = this.toggleUnit.bind(this)
+  }
 
-  return (
-    <div style={styles.container}>
-      <span style={styles.value}>
-        <span onClick={toggleEdit}>{value}</span>
-        <span style={styles.unit} onClick={toggleUnit}>  {unit}</span>
-      </span>
-    </div>
-  )
+  toggleUnit() {
+    this.props.toggleUnit(this.props.ingredient)
+  }
+
+  render() {
+    const { value, unit, toggleEdit, toggleUnit } = this.props
+
+    return (
+      <div style={styles.container}>
+        <span style={styles.value}>
+          <span onClick={toggleEdit}>{value}</span>
+          <span style={styles.unit} onClick={this.toggleUnit}>  {unit}</span>
+        </span>
+      </div>
+    )
+  }
 }
 
 Unit.propTypes = {
+  ingredient: PropTypes.string.isRequired,
   value: React.PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired

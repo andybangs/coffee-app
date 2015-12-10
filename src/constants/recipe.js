@@ -1,0 +1,6 @@
+export const INC_VAL = 'INC_VAL'
+export const DEC_VAL = 'DEC_VAL'
+export const SET_VAL = 'SET_VAL'
+export const INC_RATIO = 'INC_RATIO'
+export const DEC_RATIO = 'DEC_RATIO'
+export const TOGGLE_UNIT = 'TOGGLE_UNIT'
