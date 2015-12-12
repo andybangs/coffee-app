@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Unit from './Unit'
 
 const Display = (props) => {
-  const { ingredient, value, unit, toggleUnit } = props
+  const { ingredient, value, displayUnit, toggleUnit } = props
 
   return (
     <div style={styles.container}>
@@ -10,7 +10,7 @@ const Display = (props) => {
         <Unit
           ingredient={ingredient}
           value={value}
-          unit={unit}
+          displayUnit={displayUnit}
           toggleUnit={toggleUnit} />
       </span>
     </div>
@@ -23,7 +23,7 @@ Display.propTypes = {
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
   ]),
-  unit: React.PropTypes.string.isRequired,
+  displayUnit: React.PropTypes.string.isRequired,
   toggleUnit: React.PropTypes.func.isRequired
 }
 
@@ -35,9 +35,6 @@ const styles = {
   },
   value: {
     alignSelf: 'center'
-  },
-  unit: {
-    fontSize: '0.5em'
   }
 }
 

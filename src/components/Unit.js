@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import { gramsToOunces } from '../util/math'
 
 class Unit extends Component {
   constructor(props) {
     super(props)
-    
+
     this.toggleUnit = this.toggleUnit.bind(this)
   }
 
@@ -12,13 +13,14 @@ class Unit extends Component {
   }
 
   render() {
-    const { value, unit, toggleEdit, toggleUnit } = this.props
+    const { value, displayUnit, toggleEdit, toggleUnit } = this.props
+    let displayValue = displayUnit === 'g' ? value : gramsToOunces(value)
 
     return (
-      <div style={styles.container}>
+      <div>
         <span style={styles.value}>
-          <span onClick={toggleEdit}>{value}</span>
-          <span style={styles.unit} onClick={this.toggleUnit}>  {unit}</span>
+          <span onClick={toggleEdit}>{displayValue}</span>
+          <span style={styles.unit} onClick={this.toggleUnit}>  {displayUnit}</span>
         </span>
       </div>
     )

@@ -14,16 +14,16 @@ const Coffee = (props) => {
       <div style={styles.coffee}>
         <Display
           ingredient="coffee"
-          value={recipe.coffee.value.toFixed(1)}
-          unit={recipe.coffee.unit}
+          value={recipe.coffee.valueInGrams.toFixed(1)}
+          displayUnit={recipe.coffee.displayUnit}
           toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.water}>
         <Ingredient
           ingredient="water"
-          value={recipe.water.value}
-          unit={recipe.water.unit}
+          value={recipe.water.valueInGrams}
+          displayUnit={recipe.water.displayUnit}
           handleUpdate={actions.setVal}
           inc={actions.incVal}
           dec={actions.decVal}

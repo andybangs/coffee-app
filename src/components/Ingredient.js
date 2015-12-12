@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Unit from './Unit'
+import { gramsToOunces } from '../util/math'
 
 class Ingredient extends Component {
   constructor(props) {
@@ -38,13 +39,14 @@ class Ingredient extends Component {
   }
 
   render() {
-    const { ingredient, value, unit, inc, dec, toggleUnit } = this.props
+    const { ingredient, value, displayUnit, inc, dec, toggleUnit } = this.props
+    let displayValue = displayUnit === 'g' ? value : gramsToOunces(value)
 
     return this.state.isEditing ?
       <div style={styles.container}>
         <input type="text"
           style={styles.input}
-          value={value}
+          value={displayValue}
           onChange={this.handleUpdate}
           onKeyDown={this.handleSubmit}
           onBlur={this.toggleEdit}
@@ -56,7 +58,7 @@ class Ingredient extends Component {
           <Unit
             ingredient={ingredient}
             value={value}
-            unit={unit}
+            displayUnit={displayUnit}
             toggleUnit={toggleUnit}
             toggleEdit={this.toggleEdit} />
         </a>
@@ -68,7 +70,7 @@ class Ingredient extends Component {
 Ingredient.propTypes = {
   ingredient: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
-  unit: PropTypes.string.isRequired,
+  displayUnit: PropTypes.string.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   inc: PropTypes.func.isRequired,
   dec: PropTypes.func.isRequired,
