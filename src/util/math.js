@@ -1,8 +1,3 @@
-// isInGrams :: String -> String
-export function isInGrams(val) {
-  return val === 'g'
-}
-
 // gramsToOunces :: Number -> Number
 export function gramsToOunces(val) {
   return +(val * 35274 / 1000000).toFixed(1)
