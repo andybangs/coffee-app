@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react'
 import Unit from './Unit'
+import { gramsToOunces } from '../util/math'
 
 const Display = (props) => {
   const { ingredient, value, displayUnit, toggleUnit } = props
+  let displayValue = displayUnit === 'g' ? value : gramsToOunces(value)
 
   return (
     <div style={styles.container}>
       <span style={styles.value}>
+        {displayValue}
         <Unit
           ingredient={ingredient}
-          value={value}
           displayUnit={displayUnit}
           toggleUnit={toggleUnit} />
       </span>

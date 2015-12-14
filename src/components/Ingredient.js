@@ -39,7 +39,7 @@ class Ingredient extends Component {
   }
 
   render() {
-    const { ingredient, value, displayUnit, inc, dec, toggleUnit } = this.props
+    const { ingredient, value, displayUnit, toggleUnit } = this.props
     let displayValue = displayUnit === 'g' ? value : gramsToOunces(value)
 
     return this.state.isEditing ?
@@ -55,12 +55,11 @@ class Ingredient extends Component {
       <div style={styles.container}>
         <span style={styles.operator} onClick={this.dec}>-</span>
         <a style={styles.value}>
+          <span onClick={this.toggleEdit}>{displayValue}</span>
           <Unit
             ingredient={ingredient}
-            value={value}
             displayUnit={displayUnit}
-            toggleUnit={toggleUnit}
-            toggleEdit={this.toggleEdit} />
+            toggleUnit={toggleUnit} />
         </a>
         <span style={styles.operator} onClick={this.inc}>+</span>
       </div>
