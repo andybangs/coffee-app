@@ -1,26 +1,34 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-class Tabs extends Component {
+class Nav extends Component {
   constructor(props) {
     super(props)
-    
-    this.state = { selected: 1 }
+
+    this.state = { selected: 0 }
   }
+
   render() {
+    const { links } = this.props
     const { selected } = this.state
+    const tabs = links.map((link, key) => {
+      return (
+        <Link key={key} to={link.to} style={styles.link} onClick={() => this.setState({ selected: key })}>
+          <span style={selected === key ? styles.active : styles.inactive}>{link.label}</span>
+        </Link>
+      )
+    })
 
     return (
       <div style={styles.container}>
-        <Link to="/coffee" style={styles.tab} onClick={() => this.setState({ selected: 1 })}>
-          <span style={selected === 1 ? styles.active : styles.inactive}>coffee</span>
-        </Link>
-        <Link to="/water" style={styles.tab} onClick={() => this.setState({ selected: 2 })}>
-          <span style={selected === 2 ? styles.active : styles.inactive}>water</span>
-        </Link>
+        {tabs}
       </div>
     )
   }
+}
+
+Nav.propTypes = {
+  links: PropTypes.array.isRequired
 }
 
 const styles = {
@@ -29,7 +37,7 @@ const styles = {
     flexFlow: 'row',
     justifyContent: 'center'
   },
-  tab: {
+  link: {
     flex: 1,
     alignSelf: 'center',
     cursor: 'pointer',
@@ -47,4 +55,4 @@ const styles = {
   }
 }
 
-export default Tabs
+export default Nav

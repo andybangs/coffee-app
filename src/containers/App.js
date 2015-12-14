@@ -1,16 +1,21 @@
-import React, { Component, PropTypes } from 'react'
-import Tabs from '../components/Tabs'
+import React, { Component } from 'react'
+import Nav from '../components/Nav'
 
 class App extends Component {
   render() {
     const { recipe, actions } = this.props
+    const links = [
+      { to: '/coffee', label: 'coffee' },
+      { to: '/water', label: 'water' }
+    ]
+
     return (
       <div style={styles.container}>
         <div style={styles.content}>
           {this.props.children}
         </div>
         <div style={styles.footer}>
-          <Tabs />
+          <Nav links={links} />
         </div>
       </div>
     )
