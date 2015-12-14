@@ -142,7 +142,7 @@ export default function recipe(state = initialState, action) {
     case INC_RATIO:
       if (ratio > 19) return state
 
-      newVal = ratio + 1
+      newVal = (ratio * 10 + 5) / 10
 
       return toBeUpdated === 'coffee' ?
         Object.assign({}, state, {
@@ -163,7 +163,7 @@ export default function recipe(state = initialState, action) {
     case DEC_RATIO:
       if (ratio < 11) return state
 
-      newVal = ratio - 1
+      newVal = (ratio * 10 - 5) / 10
 
       return toBeUpdated === 'coffee' ?
         Object.assign({}, state, {
