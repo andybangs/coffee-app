@@ -62,7 +62,8 @@ export default function recipe(state = initialState, action) {
       newVal = incVal(ingredient, state[ingredient].displayUnit, state[ingredient].valueInGrams)
 
       return ingredient === 'water' ?
-        Object.assign({}, state, {
+        {
+          ...state,
           coffee: {
             valueInGrams: calcCoffee(newVal, ratio),
             displayUnit: coffee.displayUnit
@@ -71,8 +72,9 @@ export default function recipe(state = initialState, action) {
             valueInGrams: newVal,
             displayUnit: water.displayUnit
           }
-        }) :
-        Object.assign({}, state, {
+        } :
+        {
+          ...state,
           coffee: {
             valueInGrams: newVal,
             displayUnit: coffee.displayUnit
@@ -81,7 +83,7 @@ export default function recipe(state = initialState, action) {
             valueInGrams: calcWater(newVal, ratio),
             displayUnit: water.displayUnit
           }
-        })
+        }
 
     case DEC_VAL:
       if (state.water < 1) return state
@@ -89,7 +91,8 @@ export default function recipe(state = initialState, action) {
       newVal = decVal(ingredient, state[ingredient].displayUnit, state[ingredient].valueInGrams)
 
       return ingredient === 'water' ?
-        Object.assign({}, state, {
+        {
+          ...state,
           coffee: {
             valueInGrams: calcCoffee(newVal, ratio),
             displayUnit: coffee.displayUnit
@@ -98,8 +101,9 @@ export default function recipe(state = initialState, action) {
             valueInGrams: newVal,
             displayUnit: water.displayUnit
           }
-        }) :
-        Object.assign({}, state, {
+        } :
+        {
+          ...state,
           coffee: {
             valueInGrams: newVal,
             displayUnit: coffee.displayUnit
@@ -108,7 +112,7 @@ export default function recipe(state = initialState, action) {
             valueInGrams: calcWater(newVal, ratio),
             displayUnit: water.displayUnit
           }
-        })
+        }
 
     case SET_VAL:
       if (action.val < 0) return state
@@ -118,7 +122,8 @@ export default function recipe(state = initialState, action) {
         +(ouncesToGrams(action.val)).toFixed()
 
       return ingredient === 'water' ?
-        Object.assign({}, state, {
+        {
+          ...state,
           coffee: {
             valueInGrams: calcCoffee(convertedVal, ratio),
             displayUnit: coffee.displayUnit
@@ -127,8 +132,9 @@ export default function recipe(state = initialState, action) {
             valueInGrams: +convertedVal,
             displayUnit: water.displayUnit
           }
-        }) :
-        Object.assign({}, state, {
+        } :
+        {
+          ...state,
           coffee: {
             valueInGrams: +convertedVal,
             displayUnit: coffee.displayUnit
@@ -137,7 +143,7 @@ export default function recipe(state = initialState, action) {
             valueInGrams: calcWater(convertedVal, ratio),
             displayUnit: water.displayUnit
           }
-        })
+        }
 
     case INC_RATIO:
       if (ratio > 19) return state
@@ -145,20 +151,22 @@ export default function recipe(state = initialState, action) {
       newVal = (ratio * 10 + 5) / 10
 
       return toBeUpdated === 'coffee' ?
-        Object.assign({}, state, {
+        {
+          ...state,
           coffee: {
             valueInGrams: calcCoffee(water.valueInGrams, newVal),
             displayUnit: coffee.displayUnit
           },
           ratio: newVal
-        }) :
-        Object.assign({}, state, {
+        } :
+        {
+          ...state,
           water: {
             valueInGrams: calcWater(coffee.valueInGrams, newVal),
             displayUnit: water.displayUnit
           },
           ratio: newVal
-        })
+        }
 
     case DEC_RATIO:
       if (ratio < 11) return state
@@ -166,35 +174,39 @@ export default function recipe(state = initialState, action) {
       newVal = (ratio * 10 - 5) / 10
 
       return toBeUpdated === 'coffee' ?
-        Object.assign({}, state, {
+        {
+          ...state,
           coffee: {
             valueInGrams: calcCoffee(water.valueInGrams, newVal),
             displayUnit: coffee.displayUnit
           },
           ratio: newVal
-        }) :
-        Object.assign({}, state, {
+        } :
+        {
+          ...state,
           water: {
             valueInGrams: calcWater(coffee.valueInGrams, newVal),
             displayUnit: water.displayUnit
           },
           ratio: newVal
-        })
+        }
 
     case TOGGLE_UNIT:
       return toBeUpdated === 'coffee' ?
-        Object.assign({}, state, {
+        {
+          ...state,
           coffee: {
             valueInGrams: coffee.valueInGrams,
             displayUnit: toggleUnit(coffee.displayUnit)
           }
-        }) :
-        Object.assign({}, state, {
+        } :
+        {
+          ...state,
           water: {
             valueInGrams: water.valueInGrams,
             displayUnit: toggleUnit(water.displayUnit)
           }
-        })
+        }
 
     default:
       return state
