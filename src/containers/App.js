@@ -6,7 +6,8 @@ class App extends Component {
     const { recipe, actions } = this.props
     const links = [
       { to: '/coffee', label: 'coffee' },
-      { to: '/water', label: 'water' }
+      { to: '/water', label: 'water' },
+      { to: '/timer', label: 'timer' }
     ]
 
     return (
