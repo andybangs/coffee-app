@@ -44,7 +44,7 @@ class Ingredient extends Component {
 
     return this.state.isEditing ?
       <div style={styles.container}>
-        <input type="text"
+        <input type="number"
           style={styles.input}
           value={displayValue}
           onChange={this.handleUpdate}
@@ -53,7 +53,7 @@ class Ingredient extends Component {
           autoFocus></input>
       </div> :
       <div style={styles.container}>
-        <span style={styles.operator} onClick={this.dec}>-</span>
+        <a style={styles.operator} onClick={this.dec}>-</a>
         <a style={styles.value}>
           <span onClick={this.toggleEdit}>{displayValue}</span>
           <Unit
@@ -61,7 +61,7 @@ class Ingredient extends Component {
             displayUnit={displayUnit}
             toggleUnit={toggleUnit} />
         </a>
-        <span style={styles.operator} onClick={this.inc}>+</span>
+        <a style={styles.operator} onClick={this.inc}>+</a>
       </div>
   }
 }

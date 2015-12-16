@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 class Ratio extends Component {
   constructor(props) {
     super(props)
-    
+
     this.inc = this.inc.bind(this)
     this.dec = this.dec.bind(this)
   }
@@ -21,11 +21,11 @@ class Ratio extends Component {
 
     return (
       <div style={styles.container}>
-        <span style={styles.operator} onClick={this.dec}>-</span>
+        <a style={styles.operator} onClick={this.dec}>-</a>
         {' '}
         <a style={styles.value}>1:{value}</a>
         {' '}
-        <span style={styles.operator} onClick={this.inc}>+</span>
+        <a style={styles.operator} onClick={this.inc}>+</a>
       </div>
     )
   }

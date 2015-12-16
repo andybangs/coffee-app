@@ -44,15 +44,17 @@ class Timer extends Component {
         </div>
 
         <div style={styles.bottom}>
-          {(this.state.secondsElapsed === 0 || this.incrementer === this.state.lastClearedIncrementer) ?
-            <button onClick={this.handleStartClick.bind(this)}>start</button> :
-            <button onClick={this.handleStopClick.bind(this)}>stop</button>
-          }
-          {' '}
-          {(this.state.secondsElapsed !== 0) ?
-            <button onClick={this.handleResetClick.bind(this)}>reset</button> :
-            null
-          }
+          <div style={styles.buttons}>
+            {(this.state.secondsElapsed === 0 || this.incrementer === this.state.lastClearedIncrementer) ?
+              <a style={styles.button} onClick={this.handleStartClick.bind(this)}>start</a> :
+              <a style={styles.button} onClick={this.handleStopClick.bind(this)}>stop</a>
+            }
+            {' '}
+            {(this.state.secondsElapsed !== 0) ?
+              <a style={styles.button} onClick={this.handleResetClick.bind(this)}>reset</a> :
+              null
+            }
+          </div>
         </div>
 
       </div>
@@ -85,7 +87,19 @@ const styles = {
     flexFlow: 'row',
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  buttons: {
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'center'
+  },
+  button: {
+    flex: 1,
+    alignSelf: 'baseline',
+    cursor: 'pointer',
+    color: 'black',
+    textAlign: 'center'
+  },
 }
 
 export default Timer
