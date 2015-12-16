@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
+import Methods from '../components/Methods'
 import Nav from '../components/Nav'
 
 class App extends Component {
   render() {
-    const { recipe, actions } = this.props
     const links = [
       { to: '/coffee', label: 'coffee' },
       { to: '/water', label: 'water' },
@@ -12,6 +12,9 @@ class App extends Component {
 
     return (
       <div style={styles.container}>
+        <div style={styles.header}>
+          <Methods />
+        </div>
         <div style={styles.content}>
           {this.props.children}
         </div>
@@ -29,13 +32,17 @@ const styles = {
     flexFlow: 'column',
     alignItems: 'stretch'
   },
-  content: {
+  header: {
     order: 1,
-    height: '88%',
+    height: '5%',
+  },
+  content: {
+    order: 2,
+    height: '85%',
   },
   footer: {
-    order: 2,
-    height: '12%',
+    order: 3,
+    height: '10%',
   }
 }
 
