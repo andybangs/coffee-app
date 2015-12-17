@@ -11,15 +11,15 @@ class Header extends Component {
   }
 
   toggleMethod() {
-    this.props.actions.toggleMethod(this.props.recipe.length)
+    this.props.actions.toggleMethod(this.props.methods.length)
   }
 
   render() {
-    const { header, recipe, actions } = this.props
+    const { header, methods, actions } = this.props
 
     return (
       <div style={styles.container}>
-        <span style={styles.link} onClick={this.toggleMethod}>{recipe[header.selected].title}</span>
+        <span style={styles.link} onClick={this.toggleMethod}>{methods[header.selected].title}</span>
       </div>
     )
   }
@@ -48,8 +48,8 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    recipe: state.recipe,
-    header: state.header
+    header: state.header,
+    methods: state.methods,
   }
 }
 

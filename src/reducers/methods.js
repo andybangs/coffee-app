@@ -1,4 +1,4 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/recipe'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/methods'
 import { ouncesToGrams } from '../util/math'
 
 const initialState = [
@@ -85,7 +85,7 @@ function toggleUnit(unit) {
   return unit === 'g' ? 'oz' : 'g'
 }
 
-export default function recipe(state = initialState, action) {
+export default function methods(state = initialState, action) {
   const { coffee, water, ratio } = state
   const { title, ingredient, toBeUpdated } = action
   let newVal
@@ -123,7 +123,7 @@ export default function recipe(state = initialState, action) {
                 displayUnit: method.recipe.coffee.displayUnit
               },
               water: {
-                valueInGrams: calcWater(convertedVal, method.recipe.ratio),
+                valueInGrams: calcWater(newVal, method.recipe.ratio),
                 displayUnit: method.recipe.water.displayUnit
               }
             }
@@ -164,7 +164,7 @@ export default function recipe(state = initialState, action) {
                 displayUnit: method.recipe.coffee.displayUnit
               },
               water: {
-                valueInGrams: calcWater(convertedVal, method.recipe.ratio),
+                valueInGrams: calcWater(newVal, method.recipe.ratio),
                 displayUnit: method.recipe.water.displayUnit
               }
             }
