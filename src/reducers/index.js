@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router'
-import methods from './methods'
+import header from './header'
 import recipe from './recipe'
 
 const rootReducer = combineReducers({
-  methods,
+  header,
   recipe,
   routing: routeReducer
 })

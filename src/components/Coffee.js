@@ -7,25 +7,25 @@ import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
 const Coffee = (props) => {
-  const { methods, recipe, actions } = props
+  const { header, recipe, actions } = props
 
   return (
     <div style={styles.container}>
       <div style={styles.coffee}>
         <Display
           ingredient="coffee"
-          title={recipe[methods.selected].title}
-          value={recipe[methods.selected].recipe.coffee.valueInGrams.toFixed(1)}
-          displayUnit={recipe[methods.selected].recipe.coffee.displayUnit}
+          title={recipe[header.selected].title}
+          value={recipe[header.selected].recipe.coffee.valueInGrams.toFixed(1)}
+          displayUnit={recipe[header.selected].recipe.coffee.displayUnit}
           toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.water}>
         <Ingredient
           ingredient="water"
-          title={recipe[methods.selected].title}
-          value={recipe[methods.selected].recipe.water.valueInGrams}
-          displayUnit={recipe[methods.selected].recipe.water.displayUnit}
+          title={recipe[header.selected].title}
+          value={recipe[header.selected].recipe.water.valueInGrams}
+          displayUnit={recipe[header.selected].recipe.water.displayUnit}
           handleUpdate={actions.setVal}
           inc={actions.incVal}
           dec={actions.decVal}
@@ -35,8 +35,8 @@ const Coffee = (props) => {
       <div style={styles.ratio}>
         <Ratio
           toBeUpdated="coffee"
-          title={recipe[methods.selected].title}
-          value={recipe[methods.selected].recipe.ratio}
+          title={recipe[header.selected].title}
+          value={recipe[header.selected].recipe.ratio}
           inc={actions.incRatio}
           dec={actions.decRatio}/>
       </div>
@@ -45,7 +45,7 @@ const Coffee = (props) => {
 }
 
 Coffee.propTypes = {
-  methods: PropTypes.object.isRequired,
+  header: PropTypes.object.isRequired,
   recipe: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 }
@@ -81,8 +81,8 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    recipe: state.recipe,
-    methods: state.methods
+    header: state.header,
+    recipe: state.recipe
   }
 }
 

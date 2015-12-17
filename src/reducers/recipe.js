@@ -1,5 +1,5 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/recipe'
-import { gramsToOunces, ouncesToGrams } from '../util/math'
+import { ouncesToGrams } from '../util/math'
 
 const initialState = [
   {

@@ -1,10 +1,10 @@
-import { TOGGLE_METHOD } from '../constants/methods'
+import { TOGGLE_METHOD } from '../constants/header'
 
 const initialState = {
   selected: 0
 }
 
-export default function methods(state = initialState, action) {
+export default function header(state = initialState, action) {
   switch (action.type) {
     case TOGGLE_METHOD:
       return state.selected < action.methodsLength - 1 ?

@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as MethodsActions from '../actions/methods'
+import * as HeaderActions from '../actions/header'
 
-class Methods extends Component {
+class Header extends Component {
   constructor(props) {
     super(props)
 
@@ -15,17 +15,17 @@ class Methods extends Component {
   }
 
   render() {
-    const { methods, recipe, actions } = this.props
+    const { header, recipe, actions } = this.props
 
     return (
       <div style={styles.container}>
-        <span style={styles.link} onClick={this.toggleMethod}>{recipe[methods.selected].title}</span>
+        <span style={styles.link} onClick={this.toggleMethod}>{recipe[header.selected].title}</span>
       </div>
     )
   }
 }
 
-Methods.propTypes = {
+Header.propTypes = {
 
 }
 
@@ -49,14 +49,14 @@ const styles = {
 function mapStateToProps(state) {
   return {
     recipe: state.recipe,
-    methods: state.methods
+    header: state.header
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(MethodsActions, dispatch)
+    actions: bindActionCreators(HeaderActions, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Methods)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

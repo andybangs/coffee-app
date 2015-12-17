@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Methods from '../components/Methods'
+import Header from '../components/Header'
 import Nav from '../components/Nav'
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div style={styles.container}>
         <div style={styles.header}>
-          <Methods />
+          <Header />
         </div>
         <div style={styles.content}>
           {this.props.children}

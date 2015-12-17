@@ -1,4 +1,4 @@
-import { TOGGLE_METHOD } from '../constants/methods'
+import { TOGGLE_METHOD } from '../constants/header'
 
 export function toggleMethod(methodsLength) {
   return {
