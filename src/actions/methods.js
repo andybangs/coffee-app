@@ -1,8 +1,8 @@
-import { SELECT_METHOD } from '../constants/methods'
+import { TOGGLE_METHOD } from '../constants/methods'
 
-export function selectMethod(index) {
+export function toggleMethod(methodsLength) {
   return {
-    type: SELECT_METHOD,
-    index
+    type: TOGGLE_METHOD,
+    methodsLength
   }
 }

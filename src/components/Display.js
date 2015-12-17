@@ -3,7 +3,7 @@ import Unit from './Unit'
 import { gramsToOunces } from '../util/math'
 
 const Display = (props) => {
-  const { ingredient, value, displayUnit, toggleUnit } = props
+  const { title, ingredient, value, displayUnit, toggleUnit } = props
   let displayValue = displayUnit === 'g' ? value : gramsToOunces(value)
 
   return (
@@ -11,6 +11,7 @@ const Display = (props) => {
       <span style={styles.value}>
         {displayValue}
         <Unit
+          title={title}
           ingredient={ingredient}
           displayUnit={displayUnit}
           toggleUnit={toggleUnit} />
@@ -20,6 +21,7 @@ const Display = (props) => {
 }
 
 Display.propTypes = {
+  title: PropTypes.string.isRequired,
   ingredient: PropTypes.string.isRequired,
   value: React.PropTypes.oneOfType([
     PropTypes.string.isRequired,

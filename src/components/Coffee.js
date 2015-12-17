@@ -7,23 +7,25 @@ import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
 const Coffee = (props) => {
-  const { recipe, actions } = props
+  const { methods, recipe, actions } = props
 
   return (
     <div style={styles.container}>
       <div style={styles.coffee}>
         <Display
           ingredient="coffee"
-          value={recipe.coffee.valueInGrams.toFixed(1)}
-          displayUnit={recipe.coffee.displayUnit}
+          title={recipe[methods.selected].title}
+          value={recipe[methods.selected].recipe.coffee.valueInGrams.toFixed(1)}
+          displayUnit={recipe[methods.selected].recipe.coffee.displayUnit}
           toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.water}>
         <Ingredient
           ingredient="water"
-          value={recipe.water.valueInGrams}
-          displayUnit={recipe.water.displayUnit}
+          title={recipe[methods.selected].title}
+          value={recipe[methods.selected].recipe.water.valueInGrams}
+          displayUnit={recipe[methods.selected].recipe.water.displayUnit}
           handleUpdate={actions.setVal}
           inc={actions.incVal}
           dec={actions.decVal}
@@ -33,7 +35,8 @@ const Coffee = (props) => {
       <div style={styles.ratio}>
         <Ratio
           toBeUpdated="coffee"
-          value={recipe.ratio}
+          title={recipe[methods.selected].title}
+          value={recipe[methods.selected].recipe.ratio}
           inc={actions.incRatio}
           dec={actions.decRatio}/>
       </div>
@@ -42,7 +45,8 @@ const Coffee = (props) => {
 }
 
 Coffee.propTypes = {
-  recipe: PropTypes.object.isRequired,
+  methods: PropTypes.object.isRequired,
+  recipe: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 }
 
@@ -77,7 +81,8 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    recipe: state.recipe
+    recipe: state.recipe,
+    methods: state.methods
   }
 }
 

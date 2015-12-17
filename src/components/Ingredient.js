@@ -21,7 +21,7 @@ class Ingredient extends Component {
 
   handleUpdate(e) {
     if (isNaN(e.target.value)) return
-    this.props.handleUpdate(this.props.ingredient, e.target.value)
+    this.props.handleUpdate(this.props.title, this.props.ingredient, e.target.value)
   }
 
   handleSubmit(e) {
@@ -31,15 +31,15 @@ class Ingredient extends Component {
   }
 
   inc() {
-    this.props.inc(this.props.ingredient)
+    this.props.inc(this.props.title, this.props.ingredient)
   }
 
   dec() {
-    this.props.dec(this.props.ingredient)
+    this.props.dec(this.props.title, this.props.ingredient)
   }
 
   render() {
-    const { ingredient, value, displayUnit, toggleUnit } = this.props
+    const { title, ingredient, value, displayUnit, toggleUnit } = this.props
     let displayValue = displayUnit === 'g' ? value : gramsToOunces(value)
 
     return this.state.isEditing ?
@@ -57,6 +57,7 @@ class Ingredient extends Component {
         <a style={styles.value}>
           <span onClick={this.toggleEdit}>{displayValue}</span>
           <Unit
+            title={title}
             ingredient={ingredient}
             displayUnit={displayUnit}
             toggleUnit={toggleUnit} />
@@ -67,6 +68,7 @@ class Ingredient extends Component {
 }
 
 Ingredient.propTypes = {
+  title: PropTypes.string.isRequired,
   ingredient: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   displayUnit: PropTypes.string.isRequired,

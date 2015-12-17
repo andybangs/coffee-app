@@ -1,1 +1,1 @@
-export const SELECT_METHOD = 'SELECT_METHOD'
+export const TOGGLE_METHOD = 'TOGGLE_METHOD'

@@ -1,44 +1,50 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/recipe'
 
-export function incVal(ingredient) {
+export function incVal(title, ingredient) {
   return {
     type: INC_VAL,
+    title,
     ingredient
   }
 }
 
-export function decVal(ingredient) {
+export function decVal(title, ingredient) {
   return {
     type: DEC_VAL,
+    title,
     ingredient
   }
 }
 
-export function setVal(ingredient, val) {
+export function setVal(title, ingredient, val) {
   return {
     type: SET_VAL,
+    title,
     ingredient,
     val
   }
 }
 
-export function incRatio(toBeUpdated) {
+export function incRatio(title, toBeUpdated) {
   return {
     type: INC_RATIO,
+    title,
     toBeUpdated
   }
 }
 
-export function decRatio(toBeUpdated) {
+export function decRatio(title, toBeUpdated) {
   return {
     type: DEC_RATIO,
+    title,
     toBeUpdated
   }
 }
 
-export function toggleUnit(toBeUpdated) {
+export function toggleUnit(title, ingredient) {
   return {
     type: TOGGLE_UNIT,
-    toBeUpdated
+    title,
+    ingredient
   }
 }

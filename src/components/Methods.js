@@ -3,14 +3,26 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as MethodsActions from '../actions/methods'
 
-const Methods = (props) => {
-  const { methods, actions } = props
+class Methods extends Component {
+  constructor(props) {
+    super(props)
 
-  return (
-    <div style={styles.container}>
-      <span style={styles.link} onClick={actions.selectMethod}>{methods.methods[methods.selected]}</span>
-    </div>
-  )
+    this.toggleMethod = this.toggleMethod.bind(this)
+  }
+
+  toggleMethod() {
+    this.props.actions.toggleMethod(this.props.recipe.length)
+  }
+
+  render() {
+    const { methods, recipe, actions } = this.props
+
+    return (
+      <div style={styles.container}>
+        <span style={styles.link} onClick={this.toggleMethod}>{recipe[methods.selected].title}</span>
+      </div>
+    )
+  }
 }
 
 Methods.propTypes = {
@@ -36,6 +48,7 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
+    recipe: state.recipe,
     methods: state.methods
   }
 }

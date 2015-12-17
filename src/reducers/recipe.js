@@ -1,17 +1,50 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/recipe'
 import { gramsToOunces, ouncesToGrams } from '../util/math'
 
-const initialState = {
-  coffee: {
-    valueInGrams: 42,
-    displayUnit: 'g'
+const initialState = [
+  {
+    title: "Aeropress",
+    recipe: {
+      coffee: {
+        valueInGrams: 18,
+        displayUnit: 'g'
+      },
+      water: {
+        valueInGrams: 270,
+        displayUnit: 'g'
+      },
+      ratio: 15
+    }
   },
-  water: {
-    valueInGrams: 672,
-    displayUnit: 'g'
+  {
+    title: "Chemex",
+    recipe: {
+      coffee: {
+        valueInGrams: 42,
+        displayUnit: 'g'
+      },
+      water: {
+        valueInGrams: 672,
+        displayUnit: 'g'
+      },
+      ratio: 16
+    }
   },
-  ratio: 16
-}
+  {
+    title: "V60",
+    recipe: {
+      coffee: {
+        valueInGrams: 22,
+        displayUnit: 'g'
+      },
+      water: {
+        valueInGrams: 352,
+        displayUnit: 'g'
+      },
+      ratio: 16
+    }
+  }
+]
 
 // calcCoffee :: Number -> Number -> Number
 function calcCoffee(water, ratio) {
@@ -54,159 +87,231 @@ function toggleUnit(unit) {
 
 export default function recipe(state = initialState, action) {
   const { coffee, water, ratio } = state
-  const { ingredient, toBeUpdated } = action
+  const { title, ingredient, toBeUpdated } = action
   let newVal
 
   switch (action.type) {
     case INC_VAL:
-      newVal = incVal(ingredient, state[ingredient].displayUnit, state[ingredient].valueInGrams)
-
-      return ingredient === 'water' ?
-        {
-          ...state,
-          coffee: {
-            valueInGrams: calcCoffee(newVal, ratio),
-            displayUnit: coffee.displayUnit
-          },
-          water: {
-            valueInGrams: newVal,
-            displayUnit: water.displayUnit
-          }
-        } :
-        {
-          ...state,
-          coffee: {
-            valueInGrams: newVal,
-            displayUnit: coffee.displayUnit
-          },
-          water: {
-            valueInGrams: calcWater(newVal, ratio),
-            displayUnit: water.displayUnit
-          }
+      return state.map(method => {
+        if (method.title !== action.title) {
+          return method
         }
+
+        newVal = incVal(ingredient, method.recipe[ingredient].displayUnit, method.recipe[ingredient].valueInGrams)
+
+        return ingredient === 'water' ?
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: calcCoffee(newVal, method.recipe.ratio),
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              water: {
+                valueInGrams: newVal,
+                displayUnit: method.recipe.water.displayUnit
+              }
+            }
+          } :
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: newVal,
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              water: {
+                valueInGrams: calcWater(convertedVal, method.recipe.ratio),
+                displayUnit: method.recipe.water.displayUnit
+              }
+            }
+          }
+      })
 
     case DEC_VAL:
-      if (state.water < 1) return state
-
-      newVal = decVal(ingredient, state[ingredient].displayUnit, state[ingredient].valueInGrams)
-
-      return ingredient === 'water' ?
-        {
-          ...state,
-          coffee: {
-            valueInGrams: calcCoffee(newVal, ratio),
-            displayUnit: coffee.displayUnit
-          },
-          water: {
-            valueInGrams: newVal,
-            displayUnit: water.displayUnit
-          }
-        } :
-        {
-          ...state,
-          coffee: {
-            valueInGrams: newVal,
-            displayUnit: coffee.displayUnit
-          },
-          water: {
-            valueInGrams: calcWater(newVal, ratio),
-            displayUnit: water.displayUnit
-          }
+      return state.map(method => {
+        if (method.title !== action.title) {
+          return method
         }
+
+        if (method.recipe[ingredient].valueInGrams < 0) return method
+
+        newVal = decVal(ingredient, method.recipe[ingredient].displayUnit, method.recipe[ingredient].valueInGrams)
+
+        return ingredient === 'water' ?
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: calcCoffee(newVal, method.recipe.ratio),
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              water: {
+                valueInGrams: newVal,
+                displayUnit: method.recipe.water.displayUnit
+              }
+            }
+          } :
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: newVal,
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              water: {
+                valueInGrams: calcWater(convertedVal, method.recipe.ratio),
+                displayUnit: method.recipe.water.displayUnit
+              }
+            }
+          }
+      })
 
     case SET_VAL:
-      if (action.val < 0) return state
-
-      let convertedVal = state[ingredient].displayUnit === 'g' ?
-        action.val :
-        +(ouncesToGrams(action.val)).toFixed()
-
-      return ingredient === 'water' ?
-        {
-          ...state,
-          coffee: {
-            valueInGrams: calcCoffee(convertedVal, ratio),
-            displayUnit: coffee.displayUnit
-          },
-          water: {
-            valueInGrams: +convertedVal,
-            displayUnit: water.displayUnit
-          }
-        } :
-        {
-          ...state,
-          coffee: {
-            valueInGrams: +convertedVal,
-            displayUnit: coffee.displayUnit
-          },
-          water: {
-            valueInGrams: calcWater(convertedVal, ratio),
-            displayUnit: water.displayUnit
-          }
+      return state.map(method => {
+        if (method.title !== action.title) {
+          return method
         }
+
+        if (action.val < 0) return method
+
+        let convertedVal = method.recipe[ingredient].displayUnit === 'g' ?
+          +action.val :
+          +(ouncesToGrams(action.val)).toFixed()
+
+        return ingredient === 'water' ?
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: calcCoffee(convertedVal, method.recipe.ratio),
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              water: {
+                valueInGrams: convertedVal,
+                displayUnit: method.recipe.water.displayUnit
+              }
+            }
+          } :
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: convertedVal,
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              water: {
+                valueInGrams: calcWater(convertedVal, method.recipe.ratio),
+                displayUnit: method.recipe.water.displayUnit
+              }
+            }
+          }
+      })
 
     case INC_RATIO:
-      if (ratio > 19) return state
-
-      newVal = (ratio * 10 + 5) / 10
-
-      return toBeUpdated === 'coffee' ?
-        {
-          ...state,
-          coffee: {
-            valueInGrams: calcCoffee(water.valueInGrams, newVal),
-            displayUnit: coffee.displayUnit
-          },
-          ratio: newVal
-        } :
-        {
-          ...state,
-          water: {
-            valueInGrams: calcWater(coffee.valueInGrams, newVal),
-            displayUnit: water.displayUnit
-          },
-          ratio: newVal
+      return state.map(method => {
+        if (method.title !== action.title) {
+          return method
         }
+
+        if (method.recipe.ratio > 19) return method
+
+        newVal = (method.recipe.ratio * 10 + 5) / 10
+
+        return toBeUpdated === 'coffee' ?
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: calcCoffee(method.recipe.water.valueInGrams, newVal),
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              ratio: newVal
+            }
+          } :
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              water: {
+                valueInGrams: calcWater(method.recipe.coffee.valueInGrams, newVal),
+                displayUnit: method.recipe.water.displayUnit
+              },
+              ratio: newVal
+            }
+          }
+      })
 
     case DEC_RATIO:
-      if (ratio < 11) return state
-
-      newVal = (ratio * 10 - 5) / 10
-
-      return toBeUpdated === 'coffee' ?
-        {
-          ...state,
-          coffee: {
-            valueInGrams: calcCoffee(water.valueInGrams, newVal),
-            displayUnit: coffee.displayUnit
-          },
-          ratio: newVal
-        } :
-        {
-          ...state,
-          water: {
-            valueInGrams: calcWater(coffee.valueInGrams, newVal),
-            displayUnit: water.displayUnit
-          },
-          ratio: newVal
+      return state.map(method => {
+        if (method.title !== action.title) {
+          return method
         }
+
+        if (method.recipe.ratio < 11) return method
+
+        newVal = (method.recipe.ratio * 10 - 5) / 10
+
+        return toBeUpdated === 'coffee' ?
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: calcCoffee(method.recipe.water.valueInGrams, newVal),
+                displayUnit: method.recipe.coffee.displayUnit
+              },
+              ratio: newVal
+            }
+          } :
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              water: {
+                valueInGrams: calcWater(method.recipe.coffee.valueInGrams, newVal),
+                displayUnit: method.recipe.water.displayUnit
+              },
+              ratio: newVal
+            }
+          }
+      })
 
     case TOGGLE_UNIT:
-      return toBeUpdated === 'coffee' ?
-        {
-          ...state,
-          coffee: {
-            valueInGrams: coffee.valueInGrams,
-            displayUnit: toggleUnit(coffee.displayUnit)
-          }
-        } :
-        {
-          ...state,
-          water: {
-            valueInGrams: water.valueInGrams,
-            displayUnit: toggleUnit(water.displayUnit)
-          }
+      return state.map(method => {
+        if (method.title !== action.title) {
+          return method
         }
+
+        return action.ingredient === 'coffee' ?
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              coffee: {
+                valueInGrams: method.recipe.coffee.valueInGrams,
+                displayUnit: toggleUnit(method.recipe.coffee.displayUnit)
+              }
+            }
+          } :
+          {
+            ...method,
+            recipe: {
+              ...method.recipe,
+              water: {
+                valueInGrams: method.recipe.water.valueInGrams,
+                displayUnit: toggleUnit(method.recipe.water.displayUnit)
+              }
+            }
+          }
+      })
 
     default:
       return state

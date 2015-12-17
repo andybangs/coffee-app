@@ -9,11 +9,11 @@ class Ratio extends Component {
   }
 
   inc() {
-    this.props.inc(this.props.toBeUpdated)
+    this.props.inc(this.props.title, this.props.toBeUpdated)
   }
 
   dec() {
-    this.props.dec(this.props.toBeUpdated)
+    this.props.dec(this.props.title, this.props.toBeUpdated)
   }
 
   render() {
@@ -33,6 +33,7 @@ class Ratio extends Component {
 
 Ratio.propTypes = {
   toBeUpdated: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   inc: PropTypes.func.isRequired,
   dec: PropTypes.func.isRequired

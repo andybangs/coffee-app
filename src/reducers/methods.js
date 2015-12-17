@@ -1,25 +1,20 @@
-import { SELECT_METHOD } from '../constants/methods'
+import { TOGGLE_METHOD } from '../constants/methods'
 
 const initialState = {
-  methods: ["aeropress", "chemex", "clever", "hario v60", "kalita wave", "press pot"],
-  selected: 1
+  selected: 0
 }
 
 export default function methods(state = initialState, action) {
-  const { methods, selected } = state
-  const { index } = action
-
   switch (action.type) {
-    case SELECT_METHOD:
-
-      return selected < methods.length - 1 ?
+    case TOGGLE_METHOD:
+      return state.selected < action.methodsLength - 1 ?
         {
           ...state,
-          selected: selected + 1
+          selected: state.selected + 1
         } :
         {
           ...state,
-          selected: 0
+          selected:0
         }
 
     default:

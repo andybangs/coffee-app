@@ -8,7 +8,7 @@ class Unit extends Component {
   }
 
   toggleUnit() {
-    this.props.toggleUnit(this.props.ingredient)
+    this.props.toggleUnit(this.props.title, this.props.ingredient)
   }
 
   render() {
@@ -19,6 +19,7 @@ class Unit extends Component {
 }
 
 Unit.propTypes = {
+  title: PropTypes.string.isRequired,
   ingredient: PropTypes.string.isRequired,
   displayUnit: React.PropTypes.string.isRequired,
   toggleUnit: React.PropTypes.func.isRequired
