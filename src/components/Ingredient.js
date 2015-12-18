@@ -45,6 +45,8 @@ class Ingredient extends Component {
     return this.state.isEditing ?
       <div style={styles.container}>
         <input type="number"
+          pattern="[0-9]*"
+          inputmode="numeric"
           style={styles.input}
           value={displayValue}
           onChange={this.handleUpdate}
