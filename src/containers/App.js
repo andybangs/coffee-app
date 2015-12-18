@@ -5,9 +5,9 @@ import Nav from '../components/Nav'
 class App extends Component {
   render() {
     const links = [
-      { to: '/coffee', label: 'coffee' },
-      { to: '/water', label: 'water' },
-      { to: '/timer', label: 'timer' }
+      { to: '/coffee', label: <i className="fa fa-coffee"></i> },
+      { to: '/water', label: <i className="fa fa-tint"></i> },
+      { to: '/timer', label: <i className="fa fa-clock-o"></i> }
     ]
 
     return (

@@ -30,11 +30,11 @@ class Header extends Component {
     return (
       <div style={styles.container}>
         <span style={styles.edge} onClick={this.resetRecipe}>
-          <i className="fa fa-refresh"></i>
+
         </span>
         <span style={styles.center} onClick={this.toggleMethod}>{methods[header.selected].title}</span>
         <span style={styles.edge} onClick={this.resetRecipe}>
-          <i className="fa fa-plus"></i>
+          <i className="fa fa-refresh"></i>
         </span>
       </div>
     )
