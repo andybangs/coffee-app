@@ -14,7 +14,7 @@ class Unit extends Component {
   render() {
     const { displayUnit, toggleUnit } = this.props
 
-    return <span style={styles.unit} onClick={this.toggleUnit}> {displayUnit}</span>
+    return <a style={styles.unit} onClick={this.toggleUnit}> {displayUnit}</a>
   }
 }
 

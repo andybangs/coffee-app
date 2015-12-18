@@ -54,14 +54,14 @@ class Ingredient extends Component {
       </div> :
       <div style={styles.container}>
         <a style={styles.operator} onClick={this.dec}>-</a>
-        <a style={styles.value}>
+        <span style={styles.value}>
           <span onClick={this.toggleEdit}>{displayValue}</span>
           <Unit
             title={title}
             ingredient={ingredient}
             displayUnit={displayUnit}
             toggleUnit={toggleUnit} />
-        </a>
+        </span>
         <a style={styles.operator} onClick={this.inc}>+</a>
       </div>
   }

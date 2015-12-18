@@ -34,15 +34,15 @@ const styles = {
   },
   header: {
     order: 1,
-    height: '5%',
+    height: '9%',
   },
   content: {
     order: 2,
-    height: '85%',
+    height: '82%',
   },
   footer: {
     order: 3,
-    height: '10%',
+    height: '9%',
   }
 }
 
