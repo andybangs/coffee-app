@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Router, Route, IndexRedirect } from 'react-router'
 import createHashHistory from 'history/lib/createHashHistory'
 import { syncReduxAndRouter } from 'redux-simple-router'
 import configureStore from './store/configureStore'
@@ -19,7 +19,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Coffee} />
+        <IndexRedirect to="coffee" />
         <Route path="coffee" component={Coffee} />
         <Route path="water" component={Water} />
         <Route path="timer" component={Timer} />
