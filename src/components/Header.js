@@ -29,13 +29,13 @@ class Header extends Component {
 
     return (
       <div style={styles.container}>
-        <span style={styles.edge} onClick={this.resetRecipe}>
-
-        </span>
-        <span style={styles.center} onClick={this.toggleMethod}>{methods[header.selected].title}</span>
-        <span style={styles.edge} onClick={this.resetRecipe}>
+        <a style={styles.edge}></a>
+        <a style={styles.center} onClick={this.toggleMethod}>
+          {methods[header.selected].title}
+        </a>
+        <a style={styles.edge} onClick={this.resetRecipe}>
           <i className="fa fa-refresh"></i>
-        </span>
+        </a>
       </div>
     )
   }
