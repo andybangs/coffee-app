@@ -1,30 +1,21 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-class Nav extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { selected: 0 }
-  }
-
-  render() {
-    const { links } = this.props
-    const { selected } = this.state
-    const tabs = links.map((link, key) => {
-      return (
-        <Link key={key} to={link.to} style={styles.link} onClick={() => this.setState({ selected: key })}>
-          <span style={selected === key ? styles.active : styles.inactive}>{link.label}</span>
-        </Link>
-      )
-    })
-
+const Nav = (props) => {
+  const tabs = props.links.map((link, key) => {
     return (
-      <div style={styles.container}>
-        {tabs}
-      </div>
+      <span key={key} style={styles.link}>
+        <Link to={link.to} style={styles.inactive} activeStyle={styles.active}>{link.label}</Link>
+      </span>
     )
-  }
+  })
+
+  return (
+    <div style={styles.container}>
+      {tabs}
+    </div>
+  )
+
 }
 
 Nav.propTypes = {
@@ -40,18 +31,18 @@ const styles = {
   link: {
     flex: 1,
     alignSelf: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
     color: 'black',
     fontSize: 25,
     textAlign: 'center'
   },
   active: {
     color: 'black',
-    fontSize: '1.2em'
+    fontSize: '1.2em',
+    textDecoration: 'none'
   },
   inactive: {
-    color: 'grey'
+    color: 'grey',
+    textDecoration: 'none'
   }
 }
 
