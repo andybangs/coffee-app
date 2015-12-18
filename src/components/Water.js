@@ -2,12 +2,13 @@ import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as MethodsActions from '../actions/methods'
+import * as UnitActions from '../actions/unit'
 import Display from './Display'
 import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
 const Water = (props) => {
-  const { header, methods, actions } = props
+  const { header, methods, unit, methodsActions, unitActions } = props
 
   return (
     <div style={styles.container}>
@@ -15,21 +16,21 @@ const Water = (props) => {
         <Display
           ingredient="water"
           title={methods[header.selected].title}
-          value={methods[header.selected].recipe.water.valueInGrams}
-          displayUnit={methods[header.selected].recipe.water.displayUnit}
-          toggleUnit={actions.toggleUnit}/>
+          value={methods[header.selected].recipe.water}
+          displayUnit={unit.water}
+          toggleUnit={unitActions.toggleUnit}/>
       </div>
 
       <div style={styles.coffee}>
         <Ingredient
           ingredient="coffee"
           title={methods[header.selected].title}
-          value={methods[header.selected].recipe.coffee.valueInGrams}
-          displayUnit={methods[header.selected].recipe.coffee.displayUnit}
-          handleUpdate={actions.setVal}
-          inc={actions.incVal}
-          dec={actions.decVal}
-          toggleUnit={actions.toggleUnit} />
+          value={methods[header.selected].recipe.coffee}
+          displayUnit={unit.coffee}
+          handleUpdate={methodsActions.setVal}
+          inc={methodsActions.incVal}
+          dec={methodsActions.decVal}
+          toggleUnit={unitActions.toggleUnit} />
       </div>
 
       <div style={styles.ratio}>
@@ -37,8 +38,8 @@ const Water = (props) => {
           toBeUpdated="water"
           title={methods[header.selected].title}
           value={methods[header.selected].recipe.ratio}
-          inc={actions.incRatio}
-          dec={actions.decRatio}/>
+          inc={methodsActions.incRatio}
+          dec={methodsActions.decRatio}/>
       </div>
     </div>
   )
@@ -47,7 +48,8 @@ const Water = (props) => {
 Water.propTypes = {
   header: PropTypes.object.isRequired,
   methods: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  methodsActions: PropTypes.object.isRequired,
+  unitActions: PropTypes.object.isRequired
 }
 
 const styles = {
@@ -82,13 +84,15 @@ const styles = {
 function mapStateToProps(state) {
   return {
     header: state.header,
-    methods: state.methods
+    methods: state.methods,
+    unit: state.unit
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(MethodsActions, dispatch)
+    methodsActions: bindActionCreators(MethodsActions, dispatch),
+    unitActions: bindActionCreators(UnitActions, dispatch)
   }
 }
 

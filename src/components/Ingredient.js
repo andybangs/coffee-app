@@ -21,7 +21,7 @@ class Ingredient extends Component {
 
   handleUpdate(e) {
     if (isNaN(e.target.value)) return
-    this.props.handleUpdate(this.props.title, this.props.ingredient, e.target.value)
+    this.props.handleUpdate(this.props.title, this.props.ingredient, this.props.displayUnit, e.target.value)
   }
 
   handleSubmit(e) {
@@ -31,11 +31,11 @@ class Ingredient extends Component {
   }
 
   inc() {
-    this.props.inc(this.props.title, this.props.ingredient)
+    this.props.inc(this.props.title, this.props.ingredient, this.props.displayUnit)
   }
 
   dec() {
-    this.props.dec(this.props.title, this.props.ingredient)
+    this.props.dec(this.props.title, this.props.ingredient, this.props.displayUnit)
   }
 
   render() {

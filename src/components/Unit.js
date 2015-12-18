@@ -8,7 +8,7 @@ class Unit extends Component {
   }
 
   toggleUnit() {
-    this.props.toggleUnit(this.props.title, this.props.ingredient)
+    this.props.toggleUnit(this.props.ingredient, this.props.displayUnit)
   }
 
   render() {

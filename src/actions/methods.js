@@ -1,26 +1,29 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/methods'
 
-export function incVal(title, ingredient) {
+export function incVal(title, ingredient, unit) {
   return {
     type: INC_VAL,
     title,
-    ingredient
+    ingredient,
+    unit
   }
 }
 
-export function decVal(title, ingredient) {
+export function decVal(title, ingredient, unit) {
   return {
     type: DEC_VAL,
     title,
-    ingredient
+    ingredient,
+    unit
   }
 }
 
-export function setVal(title, ingredient, val) {
+export function setVal(title, ingredient, unit, val) {
   return {
     type: SET_VAL,
     title,
     ingredient,
+    unit,
     val
   }
 }
