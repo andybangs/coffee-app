@@ -2,31 +2,43 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as HeaderActions from '../actions/header'
+import { resetRecipe } from '../actions/methods'
 
 class Header extends Component {
   constructor(props) {
     super(props)
 
     this.toggleMethod = this.toggleMethod.bind(this)
+    this.resetRecipe = this.resetRecipe.bind(this)
   }
 
   toggleMethod() {
-    this.props.actions.toggleMethod(this.props.methods.length)
+    const { actions, methods } = this.props
+
+    actions.toggleMethod(methods.length)
+  }
+
+  resetRecipe() {
+    const { actions, header, methods } = this.props
+
+    actions.resetRecipe(methods[header.selected].title)
   }
 
   render() {
-    const { header, methods, actions } = this.props
+    const { header, methods } = this.props
 
     return (
       <div style={styles.container}>
-        <span style={styles.link} onClick={this.toggleMethod}>{methods[header.selected].title}</span>
+        <span style={styles.edge} onClick={this.resetRecipe}>
+          <i className="fa fa-refresh"></i>
+        </span>
+        <span style={styles.center} onClick={this.toggleMethod}>{methods[header.selected].title}</span>
+        <span style={styles.edge} onClick={this.resetRecipe}>
+          <i className="fa fa-plus"></i>
+        </span>
       </div>
     )
   }
-}
-
-Header.propTypes = {
-
 }
 
 const styles = {
@@ -35,13 +47,21 @@ const styles = {
     flexFlow: 'row',
     justifyContent: 'center'
   },
-  link: {
-    flex: 1,
+  center: {
+    flex: 3,
     alignSelf: 'center',
     cursor: 'pointer',
     textDecoration: 'none',
     color: 'black',
     fontSize: 25,
+    textAlign: 'center'
+  },
+  edge: {
+    flex: 1,
+    alignSelf: 'center',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'black',
     textAlign: 'center'
   }
 }
@@ -55,7 +75,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(HeaderActions, dispatch)
+    actions: Object.assign({},
+      bindActionCreators(HeaderActions, dispatch),
+      bindActionCreators({ resetRecipe }, dispatch))
   }
 }
 

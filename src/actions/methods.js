@@ -1,4 +1,4 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/methods'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE } from '../constants/methods'
 
 export function incVal(title, ingredient, unit) {
   return {
@@ -44,10 +44,9 @@ export function decRatio(title, toBeUpdated) {
   }
 }
 
-export function toggleUnit(title, ingredient) {
+export function resetRecipe(title) {
   return {
-    type: TOGGLE_UNIT,
-    title,
-    ingredient
+    type: RESET_RECIPE,
+    title
   }
 }

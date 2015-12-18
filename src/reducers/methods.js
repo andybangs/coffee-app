@@ -1,4 +1,4 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, TOGGLE_UNIT } from '../constants/methods'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE } from '../constants/methods'
 import { ouncesToGrams } from '../util/math'
 
 const initialState = [
@@ -208,6 +208,15 @@ export default function methods(state = initialState, action) {
               ratio: newVal
             }
           }
+      })
+
+    case RESET_RECIPE:
+      return state.map((method, index) => {
+        if (method.title !== title) {
+          return method
+        }
+
+        return initialState[index]
       })
 
     default:
