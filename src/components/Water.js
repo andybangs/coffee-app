@@ -9,14 +9,15 @@ import Ratio from './Ratio'
 
 const Water = (props) => {
   const { header, methods, unit, methodsActions, unitActions } = props
+  const method = methods[header.selected] ? methods[header.selected] : methods[0]
 
   return (
     <div style={styles.container}>
       <div style={styles.water}>
         <Display
           ingredient="water"
-          title={methods[header.selected].title}
-          value={methods[header.selected].recipe.water}
+          title={method.title}
+          value={method.recipe.water}
           displayUnit={unit.water}
           toggleUnit={unitActions.toggleUnit}/>
       </div>
@@ -24,8 +25,8 @@ const Water = (props) => {
       <div style={styles.coffee}>
         <Ingredient
           ingredient="coffee"
-          title={methods[header.selected].title}
-          value={methods[header.selected].recipe.coffee}
+          title={method.title}
+          value={method.recipe.coffee}
           displayUnit={unit.coffee}
           handleUpdate={methodsActions.setVal}
           inc={methodsActions.incVal}
@@ -36,8 +37,8 @@ const Water = (props) => {
       <div style={styles.ratio}>
         <Ratio
           toBeUpdated="water"
-          title={methods[header.selected].title}
-          value={methods[header.selected].recipe.ratio}
+          title={method.title}
+          value={method.recipe.ratio}
           inc={methodsActions.incRatio}
           dec={methodsActions.decRatio}/>
       </div>

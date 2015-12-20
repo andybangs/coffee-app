@@ -9,6 +9,7 @@ import App from './containers/App'
 import Coffee from './components/Coffee'
 import Water from './components/Water'
 import Timer from './components/Timer'
+import List from './components/List'
 
 const store = configureStore()
 const history = createHashHistory({ queryKey: false })
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path="water" component={Water} />
         <Route path="timer" component={Timer} />
       </Route>
+      <Route path="list" component={List} />
     </Router>
   </Provider>,
   document.getElementById('app')

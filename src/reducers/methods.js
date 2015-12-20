@@ -1,4 +1,4 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE } from '../constants/methods'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE, DELETE_METHOD } from '../constants/methods'
 import { ouncesToGrams } from '../util/math'
 
 const initialState = [
@@ -218,6 +218,10 @@ export default function methods(state = initialState, action) {
 
         return initialState[index]
       })
+
+    case DELETE_METHOD:
+      if (state.length <= 1) return state
+      return state.filter((method) => method.title !== action.title)
 
     default:
       return state

@@ -8,38 +8,39 @@ import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
 const Coffee = (props) => {
-  const { header, methods, unit, methodsActions, unitActions } = props
+  const { header, methods, unit, actions } = props
+  const method = methods[header.selected]
 
   return (
     <div style={styles.container}>
       <div style={styles.coffee}>
         <Display
           ingredient="coffee"
-          title={methods[header.selected].title}
-          value={methods[header.selected].recipe.coffee.toFixed(1)}
+          title={method.title}
+          value={method.recipe.coffee.toFixed(1)}
           displayUnit={unit.coffee}
-          toggleUnit={unitActions.toggleUnit} />
+          toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.water}>
         <Ingredient
           ingredient="water"
-          title={methods[header.selected].title}
-          value={methods[header.selected].recipe.water}
+          title={method.title}
+          value={method.recipe.water}
           displayUnit={unit.water}
-          handleUpdate={methodsActions.setVal}
-          inc={methodsActions.incVal}
-          dec={methodsActions.decVal}
-          toggleUnit={unitActions.toggleUnit} />
+          handleUpdate={actions.setVal}
+          inc={actions.incVal}
+          dec={actions.decVal}
+          toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.ratio}>
         <Ratio
           toBeUpdated="coffee"
-          title={methods[header.selected].title}
-          value={methods[header.selected].recipe.ratio}
-          inc={methodsActions.incRatio}
-          dec={methodsActions.decRatio}/>
+          title={method.title}
+          value={method.recipe.ratio}
+          inc={actions.incRatio}
+          dec={actions.decRatio}/>
       </div>
     </div>
   )
@@ -48,8 +49,7 @@ const Coffee = (props) => {
 Coffee.propTypes = {
   header: PropTypes.object.isRequired,
   methods: PropTypes.array.isRequired,
-  methodsActions: PropTypes.object.isRequired,
-  unitActions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
 }
 
 const styles = {
@@ -91,8 +91,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    methodsActions: bindActionCreators(MethodsActions, dispatch),
-    unitActions: bindActionCreators(UnitActions, dispatch)
+    actions: Object.assign({},
+      bindActionCreators(MethodsActions, dispatch),
+      bindActionCreators(UnitActions, dispatch)
+    )
   }
 }
 

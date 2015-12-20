@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as HeaderActions from '../actions/header'
 import { resetRecipe } from '../actions/methods'
 
-class Header extends Component {
+class ListHeader extends Component {
   constructor(props) {
     super(props)
 
@@ -26,26 +26,19 @@ class Header extends Component {
   }
 
   render() {
-    const { header, methods, actions } = this.props
-
-    // TODO: Find a better place for this
-    if (!methods[header.selected]) {
-      actions.selectMethod(0)
-    }
-
-    let method = methods[header.selected] ? methods[header.selected] : methods[0]
+    const { header, methods } = this.props
 
     return (
       <div style={styles.container}>
-        <Link to="list" style={styles.edge}>
-          <i className="fa fa-bars"></i>
+        <Link to="coffee" style={styles.edge}>
+          <i className="fa fa-chevron-left"></i>
         </Link>
-        <a style={styles.center} onClick={this.toggleMethod}>
-          {method.title}
+        <a style={styles.center}>
+          Brew Methods
         </a>
-        <a style={styles.edge} onClick={this.resetRecipe}>
-          <i className="fa fa-refresh"></i>
-        </a>
+        <Link to="coffee" style={styles.edge}>
+          <i className="fa fa-cog"></i>
+        </Link>
       </div>
     )
   }
@@ -91,4 +84,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(ListHeader)
