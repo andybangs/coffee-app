@@ -9,7 +9,7 @@ import Ratio from './Ratio'
 
 const Water = (props) => {
   const { header, methods, unit, methodsActions, unitActions } = props
-  const method = methods[header.selected] ? methods[header.selected] : methods[0]
+  const method = methods[header.selected]
 
   return (
     <div style={styles.container}>
