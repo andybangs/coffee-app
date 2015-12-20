@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+import React, { Component } from 'react'
+import { Link, PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as HeaderActions from '../actions/header'
@@ -30,9 +30,9 @@ class ListHeader extends Component {
 
     return (
       <div style={styles.container}>
-        <Link to="coffee" style={styles.edge}>
+        <a style={styles.edge} onClick={() => this.context.history.goBack()}>
           <i className="fa fa-chevron-left"></i>
-        </Link>
+        </a>
         <a style={styles.center}>
           Brew Methods
         </a>
@@ -67,6 +67,10 @@ const styles = {
     color: 'black',
     textAlign: 'center'
   }
+}
+
+ListHeader.contextTypes = {
+  history: PropTypes.history
 }
 
 function mapStateToProps(state) {

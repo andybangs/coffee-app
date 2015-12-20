@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -22,9 +22,9 @@ class List extends Component {
           <Link to="list" style={styles.rowIcon}>
             <i className="fa fa-pencil-square-o"></i>
           </Link>
-          <Link to="list" style={styles.rowIcon}>
-            <i className="fa fa-times" onClick={() => actions.deleteMethod(method.title)}></i>
-          </Link>
+          <a style={styles.rowIcon} onClick={() => actions.deleteMethod(method.title)}>
+            <i className="fa fa-times"></i>
+          </a>
         </div>
       )
     })
