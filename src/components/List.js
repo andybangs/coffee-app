@@ -17,12 +17,12 @@ class List extends Component {
             <i className="fa fa-bars"></i>
           </a>
           <Link to="coffee" style={styles.rowName}>
-            <span onClick={(ev) => actions.selectMethod(index) }>{method.title}</span>
+            <span onClick={() => actions.selectMethod(index) }>{method.title}</span>
           </Link>
           <Link to="list" style={styles.rowIcon}>
             <i className="fa fa-pencil-square-o"></i>
           </Link>
-          <a style={styles.rowIcon} onClick={() => actions.deleteMethod(method.title)}>
+          <a style={styles.rowIcon} onClick={() => actions.deleteMethod(index)}>
             <i className="fa fa-times"></i>
           </a>
         </div>
