@@ -46,7 +46,7 @@ class Ingredient extends Component {
       <div style={styles.container}>
         <input type="number"
           pattern="[0-9]*"
-          inputmode="numeric"
+          inputMode="numeric"
           style={styles.input}
           value={displayValue}
           onChange={this.handleUpdate}
