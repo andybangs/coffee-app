@@ -3,7 +3,7 @@ import { ouncesToGrams } from '../util/math'
 
 const initialState = [
   {
-    title: "Aeropress",
+    title: "AeroPress",
     recipe: {
       coffee: 18,
       water: 270,
@@ -19,7 +19,15 @@ const initialState = [
     }
   },
   {
-    title: "V60",
+    title: "Clever Dripper",
+    recipe: {
+      coffee: 20,
+      water: 300,
+      ratio: 15
+    }
+  },
+  {
+    title: "Hario V60",
     recipe: {
       coffee: 22,
       water: 352,

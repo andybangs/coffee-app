@@ -9,6 +9,7 @@ import App from './containers/App'
 import Edit from './containers/Edit'
 import EditCoffee from './components/EditCoffee'
 import EditWater from './components/EditWater'
+import EditList from './components/EditList'
 import Coffee from './components/Coffee'
 import Water from './components/Water'
 import Timer from './components/Timer'
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path="timer" component={Timer} />
       </Route>
       <Route path="list" component={List} />
+      <Route path="editlist" component={EditList} />
       <Route path="edit" component={Edit}>
         <Route path="coffee/:index" component={EditCoffee} />
         <Route path="water/:index" component={EditWater} />

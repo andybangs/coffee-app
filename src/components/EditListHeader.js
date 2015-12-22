@@ -1,22 +1,22 @@
 import React from 'react'
 import { PropTypes } from 'react-router'
 
-const ListHeader = (props, context) => {
-  const { history } = context
+const EditListHeader = (props, context) => {
+    const { history } = context
 
-  return (
-    <div style={styles.container}>
-      <a style={styles.edge} onClick={() => history.goBack()}>
-        <i className="fa fa-chevron-left"></i>
-      </a>
-      <a style={styles.center}>
-        Brew Methods
-      </a>
-      <a style={styles.edge} onClick={() => history.replaceState(null, 'editlist')}>
-        <i className="fa fa-cog"></i>
-      </a>
-    </div>
-  )
+    return (
+      <div style={styles.container}>
+        <a style={styles.edge} onClick={() => history.replaceState(null, 'list')}>
+          <i className="fa fa-chevron-left"></i>
+        </a>
+        <a style={styles.center}>
+          Edit Methods
+        </a>
+        <a style={styles.edge}>
+          <i className="fa fa-plus"></i>
+        </a>
+      </div>
+    )
 }
 
 const styles = {
@@ -44,8 +44,8 @@ const styles = {
   }
 }
 
-ListHeader.contextTypes = {
+EditListHeader.contextTypes = {
   history: PropTypes.history
 }
 
-export default ListHeader
+export default EditListHeader

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetRecipe, editMethodTitle, editMethodRecipe, deleteMethod } from '../actions/methods'
+import { editMethodTitle, editMethodRecipe, deleteMethod } from '../actions/methods'
 
 class EditHeader extends Component {
   constructor(props) {
@@ -22,25 +22,22 @@ class EditHeader extends Component {
     this.setState({ isEditing: !this.state.isEditing })
   }
 
-  handleUpdate(e) {
-    if (!e.target.value) return
-    this.props.actions.editMethodTitle(this.props.index, e.target.value)
+  handleUpdate(ev) {
+    this.props.actions.editMethodTitle(this.props.index, ev.target.value)
   }
 
-  handleSubmit(e) {
-    if (e.which === 13) {
-      this.toggleEdit()
-    }
+  handleSubmit(ev) {
+    if (ev.which === 13) this.toggleEdit()
   }
 
   saveAndGoBack() {
     this.props.actions.editMethodRecipe(this.props.index)
-    this.context.history.goBack()
+    this.context.history.replaceState(null, 'list')
   }
 
   deleteAndGoBack() {
     this.props.actions.deleteMethod(this.props.index)
-    this.context.history.goBack()
+    this.context.history.replaceState(null, 'list')
   }
 
   render() {
@@ -97,7 +94,6 @@ const styles = {
     alignSelf: 'center',
     textAlign: 'center',
     width: '50%',
-    height: '75%',
     fontSize: 25
   }
 }
@@ -118,7 +114,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ resetRecipe, editMethodTitle, editMethodRecipe, deleteMethod }, dispatch)
+    actions: bindActionCreators({ editMethodTitle, editMethodRecipe, deleteMethod }, dispatch)
   }
 }
 

@@ -1,21 +1,26 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { selectMethod } from '../actions/header'
-import ListHeader from './ListHeader'
+import { deleteMethod } from '../actions/methods'
+import EditListHeader from './EditListHeader'
 
-const List = (props) => {
+const EditList = (props, context) => {
   const { methods, actions } = props
+  const { history} = context
 
   const list =  methods.map((method, index) => {
     return (
       <div key={index} style={styles.rowContainer}>
-        <a style={styles.rowIcon}></a>
-        <Link to="coffee" style={styles.rowName}>
-          <span onClick={() => actions.selectMethod(index)}>{method.title}</span>
-        </Link>
-        <a style={styles.rowIcon}></a>
+        <a style={styles.rowIcon}>
+          <i className="fa fa-bars"></i>
+        </a>
+        <a style={styles.rowName} onClick={() => history.replaceState(null, `/edit/coffee/${index}`)}>
+          {method.title}
+        </a>
+        <a style={styles.rowIcon} onClick={() => actions.deleteMethod(index)}>
+          <i className="fa fa-times"></i>
+        </a>
       </div>
     )
   })
@@ -23,7 +28,7 @@ const List = (props) => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <ListHeader />
+        <EditListHeader />
       </div>
       <div style={styles.content}>
         <div style={styles.listContainer}>
@@ -61,13 +66,24 @@ const styles = {
     height: 60
   },
   rowName: {
-    flex: 1,
+    flex: 4,
     cursor: 'pointer',
     textDecoration: 'none',
     color: 'black',
     fontSize: 25,
+    textAlign: 'left'
+  },
+  rowIcon: {
+    flex: 1,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'black',
     textAlign: 'center'
   }
+}
+
+EditList.contextTypes = {
+  history: PropTypes.history
 }
 
 function mapStateToProps(state) {
@@ -78,8 +94,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ selectMethod }, dispatch)
+    actions: bindActionCreators({ deleteMethod }, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps, mapDispatchToProps)(EditList)
