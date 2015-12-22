@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as HeaderActions from '../actions/header'
+import { selectMethod } from '../actions/header'
 import * as MethodsActions from '../actions/methods'
 import ListHeader from './ListHeader'
 
@@ -17,14 +17,11 @@ class List extends Component {
             <i className="fa fa-bars"></i>
           </a>
           <Link to="coffee" style={styles.rowName}>
-            <span onClick={() => actions.selectMethod(index) }>{method.title}</span>
+            <span onClick={() => actions.selectMethod(index)}>{method.title}</span>
           </Link>
-          <Link to="list" style={styles.rowIcon}>
+          <Link to={`/edit/coffee/${index}`} style={styles.rowIcon}>
             <i className="fa fa-pencil-square-o"></i>
           </Link>
-          <a style={styles.rowIcon} onClick={() => actions.deleteMethod(index)}>
-            <i className="fa fa-times"></i>
-          </a>
         </div>
       )
     })
@@ -107,7 +104,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: Object.assign({},
-      bindActionCreators(HeaderActions, dispatch),
+      bindActionCreators({ selectMethod }, dispatch),
       bindActionCreators(MethodsActions, dispatch)
     )
   }
