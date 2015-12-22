@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import EditHeader from '../components/EditHeader'
-import EditNav from '../components/EditNav'
+import Nav from '../components/Nav'
 
 class Edit extends Component {
   render() {
@@ -18,7 +18,7 @@ class Edit extends Component {
           {this.props.children}
         </div>
         <div style={styles.footer}>
-          <EditNav links={links} />
+          <Nav links={links} />
         </div>
       </div>
     )

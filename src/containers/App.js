@@ -5,15 +5,15 @@ import Nav from '../components/Nav'
 class App extends Component {
   render() {
     const links = [
-      { to: '/coffee', label: <i className="fa fa-coffee"></i> },
-      { to: '/water', label: <i className="fa fa-tint"></i> },
-      { to: '/timer', label: <i className="fa fa-clock-o"></i> }
+      { to: `/coffee/${this.props.params.index}`, label: <i className="fa fa-coffee"></i> },
+      { to: `/water/${this.props.params.index}`, label: <i className="fa fa-tint"></i> },
+      { to: `/timer/${this.props.params.index}`, label: <i className="fa fa-clock-o"></i> }
     ]
 
     return (
       <div style={styles.container}>
         <div style={styles.header}>
-          <Header />
+          <Header pathname={this.props.location.pathname} index={+this.props.params.index} />
         </div>
         <div style={styles.content}>
           {this.props.children}

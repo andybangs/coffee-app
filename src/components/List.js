@@ -1,21 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { selectMethod } from '../actions/header'
 import ListHeader from './ListHeader'
 
 const List = (props) => {
-  const { methods, actions } = props
-
-  const list =  methods.map((method, index) => {
+  const list = props.methods.map((method, index) => {
     return (
       <div key={index} style={styles.rowContainer}>
-        <a style={styles.rowIcon}></a>
-        <Link to="coffee" style={styles.rowName}>
-          <span onClick={() => actions.selectMethod(index)}>{method.title}</span>
+        <Link to={`coffee/${index}`} style={styles.rowName}>
+          {method.title}
         </Link>
-        <a style={styles.rowIcon}></a>
       </div>
     )
   })
@@ -76,10 +70,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({ selectMethod }, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps)(List)

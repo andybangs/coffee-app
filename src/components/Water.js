@@ -8,8 +8,8 @@ import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
 const Water = (props) => {
-  const { header, methods, unit, methodsActions, unitActions } = props
-  const method = methods[header.selected]
+  const { methods, unit, actions, params } = props
+  const method = methods[params.index] ? methods[params.index] : methods[0]
 
   return (
     <div style={styles.container}>
@@ -19,7 +19,7 @@ const Water = (props) => {
           title={method.title}
           value={method.recipe.water}
           displayUnit={unit.water}
-          toggleUnit={unitActions.toggleUnit}/>
+          toggleUnit={actions.toggleUnit}/>
       </div>
 
       <div style={styles.coffee}>
@@ -28,10 +28,10 @@ const Water = (props) => {
           title={method.title}
           value={method.recipe.coffee}
           displayUnit={unit.coffee}
-          handleUpdate={methodsActions.setVal}
-          inc={methodsActions.incVal}
-          dec={methodsActions.decVal}
-          toggleUnit={unitActions.toggleUnit} />
+          handleUpdate={actions.setVal}
+          inc={actions.incVal}
+          dec={actions.decVal}
+          toggleUnit={actions.toggleUnit} />
       </div>
 
       <div style={styles.ratio}>
@@ -39,18 +39,11 @@ const Water = (props) => {
           toBeUpdated="water"
           title={method.title}
           value={method.recipe.ratio}
-          inc={methodsActions.incRatio}
-          dec={methodsActions.decRatio}/>
+          inc={actions.incRatio}
+          dec={actions.decRatio}/>
       </div>
     </div>
   )
-}
-
-Water.propTypes = {
-  header: PropTypes.object.isRequired,
-  methods: PropTypes.array.isRequired,
-  methodsActions: PropTypes.object.isRequired,
-  unitActions: PropTypes.object.isRequired
 }
 
 const styles = {
@@ -84,7 +77,6 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    header: state.header,
     methods: state.methods,
     unit: state.unit
   }
@@ -92,8 +84,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    methodsActions: bindActionCreators(MethodsActions, dispatch),
-    unitActions: bindActionCreators(UnitActions, dispatch)
+    actions: Object.assign({},
+      bindActionCreators(MethodsActions, dispatch),
+      bindActionCreators(UnitActions, dispatch)
+    )
   }
 }
 

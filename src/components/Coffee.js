@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as MethodsActions from '../actions/methods'
@@ -8,8 +8,8 @@ import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
 const Coffee = (props) => {
-  const { header, methods, unit, actions } = props
-  const method = methods[header.selected]
+  const { methods, unit, actions, params } = props
+  const method = methods[params.index] ? methods[params.index] : methods[0]
 
   return (
     <div style={styles.container}>
@@ -46,12 +46,6 @@ const Coffee = (props) => {
   )
 }
 
-Coffee.propTypes = {
-  header: PropTypes.object.isRequired,
-  methods: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
-}
-
 const styles = {
   container: {
     display: 'flex',
@@ -83,7 +77,6 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    header: state.header,
     methods: state.methods,
     unit: state.unit
   }

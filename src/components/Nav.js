@@ -1,11 +1,16 @@
-import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+import React from 'react'
+import { PropTypes } from 'react-router'
 
-const Nav = (props) => {
+const Nav = (props, context) => {
   const tabs = props.links.map((link, key) => {
     return (
       <span key={key} style={styles.link}>
-        <Link to={link.to} style={styles.inactive} activeStyle={styles.active}>{link.label}</Link>
+        <a
+          style={context.history.isActive(link.to) ? styles.active : styles.inactive}
+          onClick={() => context.history.replaceState(null, link.to)}
+        >
+          {link.label}
+        </a>
       </span>
     )
   })
@@ -15,11 +20,14 @@ const Nav = (props) => {
       {tabs}
     </div>
   )
-
 }
 
 Nav.propTypes = {
-  links: PropTypes.array.isRequired
+  links: React.PropTypes.array.isRequired
+}
+
+Nav.contextTypes = {
+  history: PropTypes.history
 }
 
 const styles = {
@@ -38,11 +46,13 @@ const styles = {
   active: {
     color: 'black',
     fontSize: '1.2em',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    cursor: 'pointer'
   },
   inactive: {
     color: 'grey',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    cursor: 'pointer'
   }
 }
 

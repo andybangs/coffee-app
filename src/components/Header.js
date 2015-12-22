@@ -1,49 +1,39 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+import React, { Component } from 'react'
+import { Link, PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as HeaderActions from '../actions/header'
 import { resetRecipe } from '../actions/methods'
 
 class Header extends Component {
-  constructor(props) {
-    super(props)
+  componentWillMount() {
+    const { methods, pathname, index } = this.props
+    const { history } = this.context
 
-    this.toggleMethod = this.toggleMethod.bind(this)
-    this.resetRecipe = this.resetRecipe.bind(this)
-  }
+    let safeIndex = index < methods.length ? index : 0
 
-  toggleMethod() {
-    const { actions, methods } = this.props
-
-    actions.toggleMethod(methods.length)
-  }
-
-  resetRecipe() {
-    const { actions, header, methods } = this.props
-
-    actions.resetRecipe(methods[header.selected].title)
+    if (index !== safeIndex) {
+      let url = pathname.slice(0, pathname.length - 1).concat(safeIndex)
+      history.replaceState(null, url)
+    }
   }
 
   render() {
-    const { header, methods, actions } = this.props
+    const { methods, actions, pathname, index } = this.props
+    const { history } = this.context
 
-    // TODO: Find a better place for this
-    if (!methods[header.selected]) {
-      actions.selectMethod(0)
-    }
-
-    let method = methods[header.selected] ? methods[header.selected] : methods[0]
+    let safeIndex = index < methods.length ? index : 0
+    let nextIndex = index + 1 < methods.length ? index + 1 : 0
+    let nextUrl = pathname.slice(0, pathname.length - 1).concat(nextIndex)
 
     return (
       <div style={styles.container}>
         <Link to="list" style={styles.edge}>
           <i className="fa fa-bars"></i>
         </Link>
-        <a style={styles.center} onClick={this.toggleMethod}>
-          {method.title}
-        </a>
-        <a style={styles.edge} onClick={this.resetRecipe}>
+        <Link to={nextUrl} style={styles.center}>
+          {methods[safeIndex].title}
+        </Link>
+        <a style={styles.edge} onClick={() => actions.resetRecipe(methods[index].title)}>
           <i className="fa fa-refresh"></i>
         </a>
       </div>
@@ -76,18 +66,24 @@ const styles = {
   }
 }
 
+Header.propTypes = {
+  pathname: React.PropTypes.string.isRequired,
+  index: React.PropTypes.number.isRequired
+}
+
+Header.contextTypes = {
+  history: PropTypes.history
+}
+
 function mapStateToProps(state) {
   return {
-    header: state.header,
-    methods: state.methods,
+    methods: state.methods
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: Object.assign({},
-      bindActionCreators(HeaderActions, dispatch),
-      bindActionCreators({ resetRecipe }, dispatch))
+    actions: bindActionCreators({ resetRecipe }, dispatch)
   }
 }
 
