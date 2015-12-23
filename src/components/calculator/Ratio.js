@@ -1,34 +1,17 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
-class Ratio extends Component {
-  constructor(props) {
-    super(props)
+const Ratio = (props) => {
+  const { toBeUpdated, title, value, inc, dec } = props
 
-    this.inc = this.inc.bind(this)
-    this.dec = this.dec.bind(this)
-  }
-
-  inc() {
-    this.props.inc(this.props.title, this.props.toBeUpdated)
-  }
-
-  dec() {
-    this.props.dec(this.props.title, this.props.toBeUpdated)
-  }
-
-  render() {
-    const { value, inc, dec } = this.props
-
-    return (
-      <div style={styles.container}>
-        <a style={styles.operator} onClick={this.dec}>-</a>
-        {' '}
-        <a style={styles.value}>1:{value}</a>
-        {' '}
-        <a style={styles.operator} onClick={this.inc}>+</a>
-      </div>
-    )
-  }
+  return (
+    <div style={styles.container}>
+      <a style={styles.operator} onClick={() => dec(title, toBeUpdated)}>-</a>
+      {' '}
+      <a style={styles.value}>1:{value}</a>
+      {' '}
+      <a style={styles.operator} onClick={() => inc(title, toBeUpdated)}>+</a>
+    </div>
+  )
 }
 
 Ratio.propTypes = {
