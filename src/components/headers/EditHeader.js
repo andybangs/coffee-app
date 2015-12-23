@@ -23,6 +23,7 @@ class EditHeader extends Component {
   }
 
   handleUpdate(ev) {
+    if (ev.target.value === '') return
     this.props.actions.editMethodTitle(this.props.index, ev.target.value)
   }
 

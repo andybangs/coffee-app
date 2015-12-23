@@ -1,4 +1,4 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE, EDIT_METHOD_TITLE, EDIT_METHOD_RECIPE, DELETE_METHOD } from '../constants/methods'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE, ADD_METHOD, EDIT_METHOD_TITLE, EDIT_METHOD_RECIPE, DELETE_METHOD } from '../constants/methods'
 import { ouncesToGrams } from '../util/math'
 
 const initialState = [
@@ -225,6 +225,18 @@ export default function methods(state = initialState, action) {
         }
 
         return initialState[index]
+      })
+
+    case ADD_METHOD:
+      if (state.length > 9) return state
+
+      return state.concat({
+        title: 'New Method',
+        recipe: {
+          coffee: 24,
+          water: 360,
+          ratio: 16
+        }
       })
 
     case EDIT_METHOD_TITLE:

@@ -1,4 +1,4 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE, EDIT_METHOD_TITLE, EDIT_METHOD_RECIPE, DELETE_METHOD } from '../constants/methods'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE, ADD_METHOD, EDIT_METHOD_TITLE, EDIT_METHOD_RECIPE, DELETE_METHOD } from '../constants/methods'
 
 export function incVal(title, ingredient, unit) {
   return {
@@ -48,6 +48,12 @@ export function resetRecipe(title) {
   return {
     type: RESET_RECIPE,
     title
+  }
+}
+
+export function addMethod() {
+  return {
+    type: ADD_METHOD
   }
 }
 
