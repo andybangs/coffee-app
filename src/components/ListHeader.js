@@ -1,47 +1,13 @@
 import React from 'react'
 import { PropTypes } from 'react-router'
+import GenericHeader from './GenericHeader'
 
 const ListHeader = (props, context) => {
-  const { history } = context
+  const title = 'Brew Methods'
+  const leftLink = <i className="fa fa-chevron-left" onClick={() => context.history.goBack()}></i>
+  const rightLink = <i className="fa fa-cog" onClick={() => context.history.replaceState(null, 'editlist')}></i>
 
-  return (
-    <div style={styles.container}>
-      <a style={styles.edge} onClick={() => history.goBack()}>
-        <i className="fa fa-chevron-left"></i>
-      </a>
-      <a style={styles.center}>
-        Brew Methods
-      </a>
-      <a style={styles.edge} onClick={() => history.replaceState(null, 'editlist')}>
-        <i className="fa fa-cog"></i>
-      </a>
-    </div>
-  )
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'center'
-  },
-  center: {
-    flex: 3,
-    alignSelf: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: 25,
-    textAlign: 'center'
-  },
-  edge: {
-    flex: 1,
-    alignSelf: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    textAlign: 'center'
-  }
+  return <GenericHeader title={title} leftLink={leftLink} rightLink={rightLink} />
 }
 
 ListHeader.contextTypes = {

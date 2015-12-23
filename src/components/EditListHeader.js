@@ -1,47 +1,13 @@
 import React from 'react'
 import { PropTypes } from 'react-router'
+import GenericHeader from './GenericHeader'
 
 const EditListHeader = (props, context) => {
-    const { history } = context
+  const title = 'Edit Methods'
+  const leftLink = <i className="fa fa-chevron-left" onClick={() => context.history.replaceState(null, 'list')}></i>
+  const rightLink = <i className="fa fa-plus"></i>
 
-    return (
-      <div style={styles.container}>
-        <a style={styles.edge} onClick={() => history.replaceState(null, 'list')}>
-          <i className="fa fa-chevron-left"></i>
-        </a>
-        <a style={styles.center}>
-          Edit Methods
-        </a>
-        <a style={styles.edge}>
-          <i className="fa fa-plus"></i>
-        </a>
-      </div>
-    )
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'center'
-  },
-  center: {
-    flex: 3,
-    alignSelf: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: 25,
-    textAlign: 'center'
-  },
-  edge: {
-    flex: 1,
-    alignSelf: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    textAlign: 'center'
-  }
+  return <GenericHeader title={title} leftLink={leftLink} rightLink={rightLink} />
 }
 
 EditListHeader.contextTypes = {
