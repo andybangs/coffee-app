@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Header from '../components/Header'
-import Nav from '../components/Nav'
+import AppHeader from '../components/headers/AppHeader'
+import Nav from '../components/footers/Nav'
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div style={styles.container}>
         <div style={styles.header}>
-          <Header pathname={this.props.location.pathname} index={+this.props.params.index} />
+          <AppHeader pathname={this.props.location.pathname} index={+this.props.params.index} />
         </div>
         <div style={styles.content}>
           {this.props.children}

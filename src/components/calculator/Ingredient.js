@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Unit from './Unit'
-import { gramsToOunces } from '../util/math'
+import { gramsToOunces } from '../../util/math'
 
 class Ingredient extends Component {
   constructor(props) {

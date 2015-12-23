@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Unit from './Unit'
-import { gramsToOunces } from '../util/math'
+import { gramsToOunces } from '../../util/math'
 
 const Display = (props) => {
   const { title, ingredient, value, displayUnit, toggleUnit } = props

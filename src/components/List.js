@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import ListHeader from './ListHeader'
+import ListHeader from './headers/ListHeader'
 
 const List = (props) => {
   const list = props.methods.map((method, index) => {

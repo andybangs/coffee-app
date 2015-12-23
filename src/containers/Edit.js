@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import EditHeader from '../components/EditHeader'
-import Nav from '../components/Nav'
+import EditHeader from '../components/headers/EditHeader'
+import Nav from '../components/footers/Nav'
 
 class Edit extends Component {
   render() {

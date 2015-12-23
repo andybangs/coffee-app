@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Link, PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetRecipe } from '../actions/methods'
+import { resetRecipe } from '../../actions/methods'
 
-class Header extends Component {
+class AppHeader extends Component {
   componentWillMount() {
     const { methods, pathname, index } = this.props
     const { history } = this.context
@@ -66,12 +66,12 @@ const styles = {
   }
 }
 
-Header.propTypes = {
+AppHeader.propTypes = {
   pathname: React.PropTypes.string.isRequired,
   index: React.PropTypes.number.isRequired
 }
 
-Header.contextTypes = {
+AppHeader.contextTypes = {
   history: PropTypes.history
 }
 
@@ -87,4 +87,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader)
