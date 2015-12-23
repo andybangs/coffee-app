@@ -11,7 +11,6 @@ const Display = (props) => {
       <span style={styles.value}>
         {displayValue}
         <Unit
-          title={title}
           ingredient={ingredient}
           displayUnit={displayUnit}
           toggleUnit={toggleUnit} />

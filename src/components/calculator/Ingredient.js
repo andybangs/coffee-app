@@ -59,7 +59,6 @@ class Ingredient extends Component {
         <span style={styles.value}>
           <span onClick={this.toggleEdit}>{displayValue}</span>
           <Unit
-            title={title}
             ingredient={ingredient}
             displayUnit={displayUnit}
             toggleUnit={toggleUnit} />
