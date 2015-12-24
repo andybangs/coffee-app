@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { editMethodTitle, editMethodRecipe, deleteMethod } from '../../actions/methods'
+import { editMethodTitle, editMethodRecipe } from '../../actions/methods'
 
 class EditHeader extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class EditHeader extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
 
     this.saveAndGoBack = this.saveAndGoBack.bind(this)
-    this.deleteAndGoBack = this.deleteAndGoBack.bind(this)
+    this.saveAndGoToCoffee = this.saveAndGoToCoffee.bind(this)
 
     this.state = { isEditing: false }
   }
@@ -36,9 +36,9 @@ class EditHeader extends Component {
     this.context.history.replaceState(null, 'list')
   }
 
-  deleteAndGoBack() {
-    this.props.actions.deleteMethod(this.props.index)
-    this.context.history.replaceState(null, 'list')
+  saveAndGoToCoffee() {
+    this.props.actions.editMethodRecipe(this.props.index)
+    this.context.history.replaceState(null, `coffee/${this.props.index}`)
   }
 
   render() {
@@ -61,8 +61,8 @@ class EditHeader extends Component {
         <a style={styles.center}>
           <span onClick={this.toggleEdit}>{methods[index] && methods[index].title}</span>
         </a>
-        <a style={styles.edge} onClick={this.deleteAndGoBack}>
-          <i className="fa fa-times"></i>
+        <a style={styles.edge} onClick={this.saveAndGoToCoffee}>
+          <i className="fa fa-check"></i>
         </a>
       </div>
   }
@@ -115,7 +115,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ editMethodTitle, editMethodRecipe, deleteMethod }, dispatch)
+    actions: bindActionCreators({ editMethodTitle, editMethodRecipe }, dispatch)
   }
 }
 
