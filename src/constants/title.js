@@ -1,0 +1,1 @@
+export const EDIT_METHOD_TITLE = 'EDIT_METHOD_TITLE'

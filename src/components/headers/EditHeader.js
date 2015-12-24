@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { editMethodTitle, editMethodRecipe } from '../../actions/methods'
+import { editMethodTitle } from '../../actions/title'
+import { editMethodRecipe } from '../../actions/methods'
 
 class EditHeader extends Component {
   constructor(props) {

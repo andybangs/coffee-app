@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as MethodsActions from '../../actions/methods'
+import * as RecipeActions from '../../actions/recipe'
 import * as UnitActions from '../../actions/unit'
 import Display from './Display'
 import Ingredient from './Ingredient'
@@ -100,7 +100,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: Object.assign({},
-      bindActionCreators(MethodsActions, dispatch),
+      bindActionCreators(RecipeActions, dispatch),
       bindActionCreators(UnitActions, dispatch)
     )
   }
