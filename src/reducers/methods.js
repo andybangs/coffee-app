@@ -1,5 +1,5 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO, RESET_RECIPE, ADD_METHOD, EDIT_METHOD_TITLE, EDIT_METHOD_RECIPE, DELETE_METHOD } from '../constants/methods'
-import { ouncesToGrams } from '../util/math'
+import { ouncesToGrams, incVal, decVal, calcCoffee, calcWater } from '../util/math'
 
 const initialState = [
   {
@@ -35,40 +35,6 @@ const initialState = [
     }
   }
 ]
-
-// calcCoffee :: Number -> Number -> Number
-function calcCoffee(water, ratio) {
-  return +(water / ratio).toFixed(1)
-}
-
-// calcWater :: Number -> Number -> Number
-function calcWater(coffee, ratio) {
-  return +(coffee * ratio).toFixed()
-}
-
-// inc :: Number -> Number -> Number
-function inc(val, step) {
-  return (val * 10 + step) / 10
-}
-
-// dec :: Number -> Number -> Number
-function dec(val, step) {
-  return (val * 10 - step) / 10
-}
-
-// incVal :: String -> String -> Number -> Number
-function incVal(ingredient, unit, val) {
-  return ingredient === 'coffee' ?
-    unit === 'g' ? inc(val, 1) : inc(val, ouncesToGrams(0.1) * 10) :
-    unit === 'g' ? inc(val, 10) : +(inc(val, ouncesToGrams(0.1) * 10)).toFixed()
-}
-
-// decVal :: String -> String -> Number -> Number
-function decVal(ingredient, unit, val) {
-  return ingredient === 'coffee' ?
-    unit === 'g' ? dec(val, 1) : dec(val, ouncesToGrams(0.1) * 10) :
-    unit === 'g' ? dec(val, 10) : +(dec(val, ouncesToGrams(0.1) * 10)).toFixed()
-}
 
 export default function methods(state = initialState, action) {
   const { title, ingredient, unit, val, toBeUpdated } = action
