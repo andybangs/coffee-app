@@ -1,8 +1,10 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO } from '../constants/recipe'
 import { EDIT_METHOD_TITLE } from '../constants/title'
-import { ADD_METHOD, DELETE_METHOD, RESET_RECIPE, EDIT_METHOD_RECIPE } from '../constants/methods'
+import { ADD_METHOD, DELETE_METHOD } from '../constants/method'
+import { RESET_RECIPE, EDIT_METHOD_RECIPE } from '../constants/methods'
 import recipe from './recipe'
 import title from './title'
+import method from './method'
 
 const initialState = [
   {
@@ -60,21 +62,10 @@ export default function methods(state = initialState, action) {
       return state.map((method, index) => title({ method, index }, action))
 
     case ADD_METHOD:
-      if (state.length > 9) return state
-
-      return state.concat({
-        title: 'New Method',
-        recipe: {
-          coffee: 24,
-          water: 360,
-          ratio: 16
-        }
-      })
+      return method(state, action)
 
     case DELETE_METHOD:
-      if (state.length < 2) return state
-
-      return state.filter((method, index) => index !== action.index)
+      return method(state, action)
 
     case RESET_RECIPE:
       return state.map((method, index) => {

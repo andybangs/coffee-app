@@ -1,5 +1,2 @@
-export const ADD_METHOD = 'ADD_METHOD'
-export const DELETE_METHOD = 'DELETE_METHOD'
-
 export const RESET_RECIPE = 'RESET_RECIPE'
 export const EDIT_METHOD_RECIPE = 'EDIT_METHOD_RECIPE'

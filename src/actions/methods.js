@@ -1,17 +1,4 @@
-import { ADD_METHOD, DELETE_METHOD, RESET_RECIPE, EDIT_METHOD_RECIPE } from '../constants/methods'
-
-export function addMethod() {
-  return {
-    type: ADD_METHOD
-  }
-}
-
-export function deleteMethod(index) {
-  return {
-    type: DELETE_METHOD,
-    index
-  }
-}
+import { RESET_RECIPE, EDIT_METHOD_RECIPE } from '../constants/methods'
 
 export function resetRecipe(title) {
   return {

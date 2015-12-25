@@ -3,7 +3,7 @@ import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import GenericHeader from './GenericHeader'
-import { addMethod } from '../../actions/methods'
+import { addMethod } from '../../actions/method'
 
 const EditListHeader = (props, context) => {
   const title = 'Edit Methods'

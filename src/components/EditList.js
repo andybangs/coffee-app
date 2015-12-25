@@ -2,7 +2,7 @@ import React from 'react'
 import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { deleteMethod } from '../actions/methods'
+import { deleteMethod } from '../actions/method'
 import EditListHeader from './headers/EditListHeader'
 
 const EditList = (props, context) => {
