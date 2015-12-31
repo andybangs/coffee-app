@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import EditHeader from '../components/headers/EditHeader'
-import Nav from '../components/footers/Nav'
+import EditFooter from '../components/footers/EditFooter'
 
 class Edit extends Component {
   render() {
-    const links = [
-      { to: `edit/coffee/${this.props.params.index}`, label: <i className="fa fa-coffee"></i> },
-      { to: `edit/water/${this.props.params.index}`, label: <i className="fa fa-tint"></i> }
-    ]
-
     return (
       <div style={styles.container}>
         <div style={styles.header}>
@@ -18,7 +13,7 @@ class Edit extends Component {
           {this.props.children}
         </div>
         <div style={styles.footer}>
-          <Nav links={links} />
+          <EditFooter index={+this.props.params.index} />
         </div>
       </div>
     )

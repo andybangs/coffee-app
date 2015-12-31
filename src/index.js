@@ -8,7 +8,6 @@ import configureStore from './store/configureStore'
 import App from './containers/App'
 import Edit from './containers/Edit'
 import Coffee from './components/Coffee'
-import Water from './components/Water'
 import Timer from './components/Timer'
 import List from './components/List'
 import EditList from './components/EditList'
@@ -24,12 +23,10 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRedirect to="coffee/0" />
         <Route path="coffee/:index" component={Coffee} />
-        <Route path="water/:index" component={Water} />
         <Route path="timer/:index" component={Timer} />
       </Route>
       <Route path="edit" component={Edit}>
         <Route path="coffee/:index" component={Coffee} />
-        <Route path="water/:index" component={Water} />
       </Route>
       <Route path="list" component={List} />
       <Route path="editlist" component={EditList} />

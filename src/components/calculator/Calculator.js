@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as RecipeActions from '../../actions/recipe'
 import * as UnitActions from '../../actions/unit'
-import Display from './Display'
 import Ingredient from './Ingredient'
 import Ratio from './Ratio'
 
@@ -16,11 +15,14 @@ const Calculator = (props) => {
     <div style={styles.container}>
       <div style={styles.display}>
         <div style={styles[display]}>
-          <Display
+          <Ingredient
             ingredient={display}
             title={method.title}
             value={method.recipe[display]}
             displayUnit={unit[display]}
+            handleUpdate={actions.setVal}
+            inc={actions.incVal}
+            dec={actions.decVal}
             toggleUnit={actions.toggleUnit} />
         </div>
       </div>
@@ -41,7 +43,7 @@ const Calculator = (props) => {
 
       <div style={styles.ratio}>
         <Ratio
-          toBeUpdated={display}
+          toBeUpdated={ingredient}
           title={method.title}
           value={method.recipe.ratio}
           inc={actions.incRatio}
@@ -59,13 +61,13 @@ const styles = {
   },
   display: {
     order: 1,
-    height: '40%',
-    fontSize: 100,
+    height: '35%',
+    fontSize: 70,
     textAlign: 'center'
   },
   ingredient: {
     order: 2,
-    height: '30%',
+    height: '35%',
     fontSize: 70,
     textAlign: 'center'
   },

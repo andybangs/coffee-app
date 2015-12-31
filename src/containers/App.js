@@ -6,7 +6,6 @@ class App extends Component {
   render() {
     const links = [
       { to: `/coffee/${this.props.params.index}`, label: <i className="fa fa-coffee"></i> },
-      { to: `/water/${this.props.params.index}`, label: <i className="fa fa-tint"></i> },
       { to: `/timer/${this.props.params.index}`, label: <i className="fa fa-clock-o"></i> }
     ]
 
