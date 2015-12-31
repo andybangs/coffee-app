@@ -1,11 +1,11 @@
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO } from '../constants/recipe'
+import { RESET_RECIPE, EDIT_INITIAL_RECIPE } from '../constants/initialRecipe'
 import { EDIT_METHOD_TITLE } from '../constants/title'
 import { ADD_METHOD, DELETE_METHOD } from '../constants/method'
-import { RESET_RECIPE, EDIT_INITIAL_RECIPE } from '../constants/initialRecipe'
-import recipe from './recipe'
-import initialRecipe from './initialRecipe'
-import title from './title'
-import method from './method'
+import recipe from './methods/recipe'
+import initialRecipe from './methods/initialRecipe'
+import title from './methods/title'
+import method from './methods/method'
 
 const initialState = [
   {

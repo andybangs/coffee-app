@@ -1,4 +1,4 @@
-import { EDIT_METHOD_TITLE } from '../constants/title'
+import { EDIT_METHOD_TITLE } from '../../constants/title'
 
 export default function title(state, action) {
 

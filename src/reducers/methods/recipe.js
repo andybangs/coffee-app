@@ -1,5 +1,5 @@
-import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO } from '../constants/recipe'
-import { ouncesToGrams, incVal, decVal, calcCoffee, calcWater } from '../util/math'
+import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO } from '../../constants/recipe'
+import { ouncesToGrams, incVal, decVal, calcCoffee, calcWater } from '../../util/math'
 
 export default function recipe(state, action) {
   const { title, ingredient, unit, val, toBeUpdated } = action

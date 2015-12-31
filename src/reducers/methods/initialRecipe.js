@@ -1,4 +1,4 @@
-import { RESET_RECIPE, EDIT_INITIAL_RECIPE } from '../constants/initialRecipe'
+import { RESET_RECIPE, EDIT_INITIAL_RECIPE } from '../../constants/initialRecipe'
 
 export default function initialRecipe(state, action) {
   switch (action.type) {

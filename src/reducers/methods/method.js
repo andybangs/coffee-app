@@ -1,4 +1,4 @@
-import { ADD_METHOD, DELETE_METHOD } from '../constants/method'
+import { ADD_METHOD, DELETE_METHOD } from '../../constants/method'
 
 
 export default function methods(state, action) {
