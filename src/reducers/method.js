@@ -12,6 +12,11 @@ export default function methods(state, action) {
           coffee: 24,
           water: 360,
           ratio: 16
+        },
+        initialRecipe: {
+          coffee: 24,
+          water: 360,
+          ratio: 16
         }
       })
 

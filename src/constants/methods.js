@@ -1,2 +1,0 @@
-export const RESET_RECIPE = 'RESET_RECIPE'
-export const EDIT_METHOD_RECIPE = 'EDIT_METHOD_RECIPE'

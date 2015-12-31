@@ -3,7 +3,7 @@ import { PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { editMethodTitle } from '../../actions/title'
-import { editMethodRecipe } from '../../actions/methods'
+import { editInitialRecipe } from '../../actions/initialRecipe'
 
 class EditHeader extends Component {
   constructor(props) {
@@ -33,12 +33,12 @@ class EditHeader extends Component {
   }
 
   saveAndGoBack() {
-    this.props.actions.editMethodRecipe(this.props.index)
+    this.props.actions.editInitialRecipe(this.props.index)
     this.context.history.replaceState(null, 'list')
   }
 
   saveAndGoToCoffee() {
-    this.props.actions.editMethodRecipe(this.props.index)
+    this.props.actions.editInitialRecipe(this.props.index)
     this.context.history.replaceState(null, `coffee/${this.props.index}`)
   }
 
@@ -116,7 +116,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ editMethodTitle, editMethodRecipe }, dispatch)
+    actions: bindActionCreators({ editMethodTitle, editInitialRecipe }, dispatch)
   }
 }
 

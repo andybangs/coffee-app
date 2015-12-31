@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, PropTypes } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetRecipe } from '../../actions/methods'
+import { resetRecipe } from '../../actions/initialRecipe'
 
 class AppHeader extends Component {
   componentWillMount() {
@@ -33,7 +33,7 @@ class AppHeader extends Component {
         <Link to={nextUrl} style={styles.center}>
           {methods[safeIndex].title}
         </Link>
-        <a style={styles.edge} onClick={() => actions.resetRecipe(methods[index].title)}>
+        <a style={styles.edge} onClick={() => actions.resetRecipe(index)}>
           <i className="fa fa-refresh"></i>
         </a>
       </div>
