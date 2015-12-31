@@ -1,25 +1,24 @@
 import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as RecipeActions from '../../actions/recipe'
-import * as UnitActions from '../../actions/unit'
-import Ingredient from './Ingredient'
-import Ratio from './Ratio'
+import * as RecipeActions from '../actions/recipe'
+import * as UnitActions from '../actions/unit'
+import Ingredient from './calculator/Ingredient'
+import Ratio from './calculator/Ratio'
 
 const Calculator = (props) => {
-  const { methods, unit, actions } = props
-  const { params, display, ingredient } = props
+  const { params, methods, unit, actions } = props
   const method = methods[params.index] ? methods[params.index] : methods[0]
 
   return (
     <div style={styles.container}>
-      <div style={styles.display}>
-        <div style={styles[display]}>
+      <div style={styles.top}>
+        <div style={styles.coffee}>
           <Ingredient
-            ingredient={display}
+            ingredient="coffee"
             title={method.title}
-            value={method.recipe[display]}
-            displayUnit={unit[display]}
+            value={method.recipe.coffee}
+            displayUnit={unit.coffee}
             handleUpdate={actions.setVal}
             inc={actions.incVal}
             dec={actions.decVal}
@@ -27,13 +26,13 @@ const Calculator = (props) => {
         </div>
       </div>
 
-      <div style={styles.ingredient}>
-        <div style={styles[ingredient]}>
+      <div style={styles.middle}>
+        <div style={styles.water}>
           <Ingredient
-            ingredient={ingredient}
+            ingredient="water"
             title={method.title}
-            value={method.recipe[ingredient]}
-            displayUnit={unit[ingredient]}
+            value={method.recipe.water}
+            displayUnit={unit.water}
             handleUpdate={actions.setVal}
             inc={actions.incVal}
             dec={actions.decVal}
@@ -41,9 +40,9 @@ const Calculator = (props) => {
         </div>
       </div>
 
-      <div style={styles.ratio}>
+      <div style={styles.bottom}>
         <Ratio
-          toBeUpdated={ingredient}
+          toBeUpdated="water"
           title={method.title}
           value={method.recipe.ratio}
           inc={actions.incRatio}
@@ -59,19 +58,19 @@ const styles = {
     flexFlow: 'column',
     alignItems: 'stretch'
   },
-  display: {
+  top: {
     order: 1,
     height: '35%',
     fontSize: 70,
     textAlign: 'center'
   },
-  ingredient: {
+  middle: {
     order: 2,
     height: '35%',
     fontSize: 70,
     textAlign: 'center'
   },
-  ratio: {
+  bottom: {
     order: 3,
     height: '30%',
     fontSize: 70,
@@ -84,12 +83,6 @@ const styles = {
   water: {
     backgroundColor: '#60daf0'
   }
-}
-
-Calculator.propTypes ={
-  params: PropTypes.object.isRequired,
-  display: PropTypes.string.isRequired,
-  ingredient: PropTypes.string.isRequired
 }
 
 function mapStateToProps(state) {
