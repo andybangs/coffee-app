@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import EditHeader from '../components/headers/EditHeader'
-import EditFooter from '../components/footers/EditFooter'
 
 class Edit extends Component {
   render() {
