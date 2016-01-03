@@ -12,9 +12,6 @@ class Edit extends Component {
         <div style={styles.content}>
           {this.props.children}
         </div>
-        <div style={styles.footer}>
-          <EditFooter index={+this.props.params.index} />
-        </div>
       </div>
     )
   }
@@ -32,11 +29,7 @@ const styles = {
   },
   content: {
     order: 2,
-    height: '82%',
-  },
-  footer: {
-    order: 3,
-    height: '9%',
+    height: '91%',
   }
 }
 

@@ -12,8 +12,9 @@ class EditHeader extends Component {
     this.toggleEdit = this.toggleEdit.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
 
-    this.resetAndGoBack = this.resetAndGoBack.bind(this)
+    this.saveAndGoBack = this.saveAndGoBack.bind(this)
 
     this.state = { isEditing: false }
   }
@@ -23,17 +24,20 @@ class EditHeader extends Component {
   }
 
   handleUpdate(ev) {
-    if (ev.target.value === '') return
-    this.props.actions.editMethodTitle(this.props.index, ev.target.value)
+    this.props.actions.editMethodTitle(this.props.index, ev.target.value.trim())
   }
 
   handleSubmit(ev) {
-    if (ev.which === 13) this.toggleEdit()
+    if (ev.target.value.trim() !== '' && ev.which === 13) this.toggleEdit()
   }
 
-  resetAndGoBack() {
-    this.props.actions.resetRecipe(this.props.index)
-    this.context.history.replaceState(null, 'list')
+  handleBlur(ev) {
+    if (ev.target.value.trim() !== '') this.toggleEdit()
+  }
+
+  saveAndGoBack() {
+    this.props.actions.editInitialRecipe(this.props.index)
+    this.context.history.replaceState(null, `coffee/${this.props.index}`)
   }
 
   render() {
@@ -46,12 +50,12 @@ class EditHeader extends Component {
           value={methods[index].title}
           onChange={this.handleUpdate}
           onKeyDown={this.handleSubmit}
-          onBlur={this.toggleEdit}
+          onBlur={this.handleBlur}
           autoFocus></input>
       </div> :
       <div style={styles.container}>
-        <a style={styles.edge} onClick={this.resetAndGoBack}>
-          <i className="fa fa-chevron-left"></i>
+        <a style={styles.edge} onClick={this.saveAndGoBack}>
+          <i className="fa fa-check"></i>
         </a>
         <a style={styles.center}>
           <span onClick={this.toggleEdit}>{methods[index] && methods[index].title}</span>
