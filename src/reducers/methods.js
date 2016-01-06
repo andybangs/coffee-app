@@ -1,3 +1,4 @@
+import { LOAD_STATE } from '../constants/middleware'
 import { INC_VAL, DEC_VAL, SET_VAL, INC_RATIO, DEC_RATIO } from '../constants/recipe'
 import { RESET_RECIPE, EDIT_INITIAL_RECIPE } from '../constants/initialRecipe'
 import { EDIT_METHOD_TITLE } from '../constants/title'
@@ -64,6 +65,9 @@ const initialState = [
 
 export default function methods(state = initialState, action) {
   switch (action.type) {
+    case LOAD_STATE:
+      return action.payload.methods
+
     case INC_VAL:
       return state.map(method => recipe(method, action))
 

@@ -5,6 +5,7 @@ import { Router, Route, IndexRedirect } from 'react-router'
 import createHashHistory from 'history/lib/createHashHistory'
 import { syncReduxAndRouter } from 'redux-simple-router'
 import configureStore from './store/configureStore'
+import { INIT } from './constants/middleware'
 import App from './containers/App'
 import Edit from './containers/Edit'
 import Calculator from './components/Calculator'
@@ -16,6 +17,8 @@ const store = configureStore()
 const history = createHashHistory({ queryKey: false })
 
 syncReduxAndRouter(history, store)
+
+store.dispatch({ type: INIT })
 
 ReactDOM.render(
   <Provider store={store}>

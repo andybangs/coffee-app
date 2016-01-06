@@ -1,8 +1,11 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import rootReducer from '../reducers'
+import load from '../middleware/load'
+import save from '../middleware/save'
 
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState)
+  const creatStoreWithMiddleware = applyMiddleware(load, save)(createStore)
+  const store = creatStoreWithMiddleware(rootReducer, initialState)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
