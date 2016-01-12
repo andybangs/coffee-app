@@ -24,7 +24,7 @@ class EditHeader extends Component {
   }
 
   handleUpdate(ev) {
-    this.props.actions.editMethodTitle(this.props.index, ev.target.value.trim())
+    this.props.actions.editMethodTitle(this.props.index, ev.target.value)
   }
 
   handleSubmit(ev) {
